@@ -1,4 +1,4 @@
-import {      /*<-- function names here*/} from "./functions.js"
+import { heal,hunkerDown,strongBlow,coinToss,turnCheck     /*<-- function names here*/} from "./functions.js"
 import { enemy,player      /*<-- class names here*/} from "./classes.js"
 import {difficultyInquiry, classInquiry , nameInquiry      /*<-- inquiry funciton names*/} from "./inquiries.js"
 

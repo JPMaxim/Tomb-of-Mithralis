@@ -1,22 +1,22 @@
 
-function heal () {
+export function heal () {
     this.health += 20
     console.log(`${this.name} used their special ability HEAL \n  ${this.name} health increased by 20`)
 }
 
-function hunkerDown () {
+export function hunkerDown () {
     this.defence *= 2.5
     turnqueue.push(["hunker",turn + 3, this])
     console.log(`${this.name} used their special ability HUNKER DOWN \n  ${this.name} defence multiplied by 2.5 for 3 turns`)
 }
 
-function strongBlow () {
+export function strongBlow () {
     this.attack *= 2
     turnqueue.push(["strongBlow",turn + 2, this])
     console.log(`${this.name} used their special ability STRONG BLOW \n  ${this.name} attack multiplied by 2 for 2 turns`)
 }
 
-function coinToss (target) {
+export function coinToss (target) {
     if ((Math.random() * 2) > 1) {
         target.health = 0
     }
@@ -25,7 +25,7 @@ function coinToss (target) {
     }
 }
 
-function turnCheck () {
+export function turnCheck () {
     let len = turnqueue.length
     for (let i = 0; i < len; i++) {
         if (turnqueue[len - i][1] == currentTurn) {
