@@ -1,5 +1,5 @@
 import {      /*<-- function names here*/} from "./functions.js"
-import {      /*<-- class names here*/} from "./classes.js"
+import { enemy,player      /*<-- class names here*/} from "./classes.js"
 import {difficultyInquiry, classInquiry , nameInquiry      /*<-- inquiry funciton names*/} from "./inquiries.js"
 
 // run difficulty inquiry
@@ -12,3 +12,4 @@ let characterClass = await classInquiry();
 let characterName = await nameInquiry();
 
 // console.log(difficulty, characterClass, characterName)
+
