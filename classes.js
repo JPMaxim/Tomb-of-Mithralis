@@ -13,7 +13,7 @@ class character {
 }
 
 export class enemy extends character {
-    constructor (health, attack, defence, trait, playerName) {
+    constructor (health, attack, defence, trait, name, playerName) {
         super(health,attack,defence,name)
         this.trait = trait
         this.stance = "defence"
