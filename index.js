@@ -1,5 +1,5 @@
-import { heal,hunkerDown,strongBlow,coinToss,turnCheck     /*<-- function names here*/} from "./functions.js"
-import { enemy,player      /*<-- class names here*/} from "./classes.js"
+import {      /*<-- function names here*/} from "./functions.js"
+import { Enemy,Player      /*<-- class names here*/} from "./classes.js"
 import {difficultyInquiry, classInquiry , nameInquiry      /*<-- inquiry funciton names*/} from "./inquiries.js"
 
 // run difficulty inquiry
@@ -13,6 +13,10 @@ let characterName = await nameInquiry();
 
 // console.log(difficulty, characterClass, characterName)
 
-let turnqueue = [] // holds data for what needs to be executed at the end of a specific turn
-let currentTurn = 0 // index of the current turn
-
+// create Monster 1
+// health, attack, defence, trait, name, playerName
+const monsterOne = new Enemy(50, 10, 25, "stealth", "monsterOne", characterName)
+// create Monster 2
+const monsterTwo = new Enemy(75, 10, 25, "chargedAttack", "monsterTwo", characterName)
+// create Monster 3
+const monsterThree = new Enemy(100, 10, 25, "defence", "monsterThree", characterName)
