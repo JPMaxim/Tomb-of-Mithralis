@@ -6,19 +6,20 @@ class Character {
         this.name = name
     }
 
-    Defend() {
-        this.defense *= 1.2
-        console.log(`${this.name} defended \n  ${this.name}'s defense increased by 4`)
+    Defend(turnqueue,currentTurn) {
+        this.defence = this.defence * 1.2
+        let arr = ["defence",currentTurn + 1, this]
+        turnqueue.push(arr)
+        console.log(`${this.name} defended \n  ${this.name}'s defence increased by 20% for 1 turn`)
     }
 }
 
 export class Enemy extends Character {
-    constructor (health, attack, defence, trait, name, playerName) {
-        super(health,defence,name)
+    constructor (health, attack, defence, name, trait, playerName) {
+        super(health,attack, defence,name)
         this.trait = trait
         this.stance = "defence"
         this.playerName = playerName
-        this.attack = attack + 5
     }
 
     Attack(target) {

@@ -1,28 +1,31 @@
 import {playerTurn      /*<-- inquiry funciton names*/} from "./inquiries.js"
 
-export function heal (target) {
+export function heal (target,turnqueue,currentTurn) {
     this.health += 20
     console.log(`${this.name} used their special ability HEAL \n  ${this.name} health increased by 20`)
 }
 
-export function hunkerDown (target) {
+export function hunkerDown (target,turnqueue,currentTurn) {
     this.defence *= 2.5
-    turnqueue.push(["hunker",currentTurn + 3, this])
+    let arr = ["hunker",currentTurn + 3, this]
+    turnqueue.push(arr)
     console.log(`${this.name} used their special ability HUNKER DOWN \n  ${this.name} defence multiplied by 2.5 for 3 turns`)
 }
 
-export function strongBlow (target) {
+export function strongBlow (target,turnqueue,currentTurn) {
     this.attack *= 2
-    turnqueue.push(["strongBlow",currentTurn + 2, this])
+    let arr = ["strongBlow",currentTurn + 2, this]
+    turnqueue.push(arr)
     console.log(`${this.name} used their special ability STRONG BLOW \n  ${this.name} attack multiplied by 2 for 2 turns`)
 }
 
 export function chargeAttack () {
-    turnqueue.push(["charge",currentTurn + 1, this])
+    let arr = ["charge",currentTurn + 1, this]
+    turnqueue.push(arr)
     console.log(`${this.name} is charging an attack`)
 }
 
-export function coinToss (target) {
+export function coinToss (target,turnqueue,currentTurn) {
     if ((Math.random() * 2) > 1) {
         target.health = 0
     }
@@ -34,28 +37,30 @@ export function coinToss (target) {
 export function turnCheck (player,turnqueue,currentTurn) {
     let len = turnqueue.length
     for (let i = 0; i < len; i++) {
-        if (turnqueue[len - i][1] == currentTurn) {
-            switch (turnqueue[len-9][0]) {
+        if (turnqueue[len - i - 1][1] == currentTurn) {
+            switch (turnqueue[len - i - 1][0]) {
                 case "defence":
-                    turnqueue[len-9][2].defence /= 1.2
+                    turnqueue[len - i - 1][2].defence /= 1.2
+                    console.log(`${turnqueue[len - i - 1][2].name}'s defence returns to normal`)
                     break;
                 case "hunker":
-                    turnqueue[len-9][2].defence /= 2.5
+                    turnqueue[len - i - 1][2].defence /= 2.5
+                    console.log(`${turnqueue[len - i - 1][2].name}'s Hunker Down wears off`)
                 case "strongBlow":
-                    turnqueue[len-9][2].attack /= 2
+                    turnqueue[len - i - 1][2].attack /= 2
+                    console.log(`${turnqueue[len - i - 1][2].name}'s attack goes back down`)
                     break
                 case "charge":
-                    player.health -= turnqueue[len-9][2] 
+                    player.health -= turnqueue[len - i - 1][2] 
+                    console.log(`${turnqueue[len - i - 1][2].name}'s executes their charge attack`)
                     break
             }
             turnqueue.splice(len - i, 1)
         }
     }
-    currentTurn++
 }
 
 export async function combat (player,enemy,turnqueue,currentTurn) {
-    console.log(enemy.health)
     
     while (player.health > 0 && enemy.health > 0) {
         let response = await playerTurn(player)
@@ -67,21 +72,26 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
                 player.heavyAttack(enemy)
                 break
             case "-Defend":
-                player.Defend()
+                player.Defend(turnqueue,currentTurn)
                 break
             case `-${player.specialName}`:
-                player.special(enemy)
+                player.special(enemy,turnqueue,currentTurn)
                 break
             case "-Taunt":
                 player.Taunt(enemy,"test")
                 break
         }
         turnCheck(player,turnqueue,currentTurn)
-        console.table({
+        currentTurn++
+        /*console.table({
+            name: player.name,
+            attack: player.attack,
             turn: currentTurn,
             health: player.health,
+            enemyHealth: enemy.health,
             defence: player.defence,
-            specialName: player.specialName
-        })
+            specialName: player.specialName,
+            queue: turnqueue
+        })*/
     }
 }

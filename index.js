@@ -18,13 +18,13 @@ let currentTurn = 0
 
 // create Monster 1
 // health, attack, defence, trait, name, playerName
-const monsterOne = new Enemy(50, 10, 25, "stealth", "monsterOne", characterName)
+const monsterOne = new Enemy(50, 10, 25, "monsterOne", "stealth", characterName.name)
 // create Monster 2
-const monsterTwo = new Enemy(75, 10, 25, "chargedAttack", "monsterTwo", characterName)
+const monsterTwo = new Enemy(75, 10, 25, "monsterTwo", "chargedAttack", characterName)
 // create Monster 3
-const monsterThree = new Enemy(100, 10, 25, "defence", "monsterThree", characterName)
+const monsterThree = new Enemy(100, 10, 25, "monsterThree", "defence", characterName)
 
 //health, attack, defence, special, specialName, name
-const player = new Player(100,15,8,hunkerDown,"Hunker Down", characterName)
+const player = new Player(100,15,8,hunkerDown,"Hunker Down", characterName.name)
 
 combat(player,monsterOne,turnqueue,currentTurn)
