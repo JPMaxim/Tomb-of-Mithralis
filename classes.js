@@ -7,7 +7,7 @@ class Character {
     }
 
     Defend() {
-        defense += 4
+        this.defense *= 1.2
         console.log(`${this.name} defended \n  ${this.name}'s defense increased by 4`)
     }
 }
@@ -43,7 +43,7 @@ export class Enemy extends Character {
 }
 
 export class Player extends Character {
-    constructor (health, attack, defence, special, name) {
+    constructor (health, attack, defence, special,specialName, name) {
         super(health,attack,defence,name)
         this.special = special
         this.specialName = specialName

@@ -1,3 +1,4 @@
+import {playerTurn      /*<-- inquiry funciton names*/} from "./inquiries.js"
 
 export function heal (target) {
     this.health += 20
@@ -16,7 +17,7 @@ export function strongBlow (target) {
     console.log(`${this.name} used their special ability STRONG BLOW \n  ${this.name} attack multiplied by 2 for 2 turns`)
 }
 
-function chargeattack () {
+export function chargeAttack () {
     turnqueue.push(["charge",currentTurn + 1, this])
     console.log(`${this.name} is charging an attack`)
 }
@@ -30,7 +31,7 @@ export function coinToss (target) {
     }
 }
 
-export function turnCheck () {
+export function turnCheck (player,turnqueue,currentTurn) {
     let len = turnqueue.length
     for (let i = 0; i < len; i++) {
         if (turnqueue[len - i][1] == currentTurn) {
@@ -53,21 +54,34 @@ export function turnCheck () {
     currentTurn++
 }
 
-export async function combat (player,enemy) {
+export async function combat (player,enemy,turnqueue,currentTurn) {
+    console.log(enemy.health)
     
     while (player.health > 0 && enemy.health > 0) {
         let response = await playerTurn(player)
         switch (response.playerChoice) {
             case "-Light Attack":
                 player.lightAttack(enemy)
+                break
             case "-Heavy Attack":
                 player.heavyAttack(enemy)
+                break
             case "-Defend":
                 player.Defend()
+                break
             case `-${player.specialName}`:
                 player.special(enemy)
+                break
             case "-Taunt":
                 player.Taunt(enemy,"test")
+                break
         }
+        turnCheck(player,turnqueue,currentTurn)
+        console.table({
+            turn: currentTurn,
+            health: player.health,
+            defence: player.defence,
+            specialName: player.specialName
+        })
     }
 }
