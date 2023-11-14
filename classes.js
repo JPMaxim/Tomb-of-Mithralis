@@ -1,7 +1,7 @@
 class character {
     constructor (health, attack, defence, name) {
         this.health = health
-        this.attack = attack + 10
+        this.attack = attack
         this.defence = defence
         this.name = name
     }
@@ -15,10 +15,11 @@ class character {
 
 export class enemy extends character {
     constructor (health, attack, defence, trait, name, playerName) {
-        super(health,attack,defence,name)
+        super(health,defence,name)
         this.trait = trait
         this.stance = "defence"
         this.playerName = playerName
+        this.attack = attack + 5
     }
 
     Attack(target) {
@@ -43,9 +44,10 @@ export class enemy extends character {
 }
 
 export class player extends character {
-    constructor (health, attack, defence, special, name) {
+    constructor (health, attack, defence, special, name, specialName) {
         super(health,attack,defence,name)
         this.special = special
+        this.specialName = specialName
     }
 
     lightAttack(target) {
