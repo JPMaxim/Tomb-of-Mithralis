@@ -25,3 +25,13 @@ export async function nameInquiry() {
         message: "Enter a name for your character:"
     })
 }
+
+//Player Turn Inquiry
+export async function playerTurn(obj) {
+    return await inquirer.prompt({
+        name: "playerChoice",
+        type: "list",
+        message: "Choose your move:",
+        choices: ["-Light Attack", "-Heavy Attack", "-Defend", `-${obj.specialName}`, "-Taunt"]
+    })
+}
