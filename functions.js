@@ -24,3 +24,7 @@ function coinToss (target) {
         this.health = 0
     }
 }
+
+function turn () {
+    
+}
