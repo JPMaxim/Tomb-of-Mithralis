@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "name": "week6escaperoom",
+  "version": "1.0.0",
+  "description": "google doc - https://docs.google.com/document/d/1Oo89sOloLvUCWIRfJHT9ytRcZ_GK0SZqlkIO2hDhk-Q/edit?usp=sharing  \r View miro board - https://miro.com/app/board/uXjVNP31kXg=/?share_link_id=761160439611  \r view user flow - https://miro.com/app/board/uXjVNP3er7o=/?share_link_id=895548665394",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
