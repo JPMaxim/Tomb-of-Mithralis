@@ -13,3 +13,6 @@ let characterName = await nameInquiry();
 
 // console.log(difficulty, characterClass, characterName)
 
+let turnqueue = [] // holds data for what needs to be executed at the end of a specific turn
+let currentTurn = 0 // index of the current turn
+

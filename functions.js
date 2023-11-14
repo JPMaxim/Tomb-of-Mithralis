@@ -5,15 +5,15 @@ function heal () {
 }
 
 function hunkerDown () {
-    this.defense *= 2.5
-    turnqueue.push(["defend",turn + 3, this])
-    console.log(`${this.name} used their special ability HUNKER DOWN \n  ${this.name} defense multiplied by 2.5 for 3 turns`)
+    this.defence *= 2.5
+    turnqueue.push(["hunker",turn + 3, this])
+    console.log(`${this.name} used their special ability HUNKER DOWN \n  ${this.name} defence multiplied by 2.5 for 3 turns`)
 }
 
 function strongBlow () {
     this.attack *= 2
     turnqueue.push(["strongBlow",turn + 2, this])
-    console.log(`${this.name} used their special ability STRONG BLOW \n  ${this.name} attack multiplied by 2.5 for 2 turns`)
+    console.log(`${this.name} used their special ability STRONG BLOW \n  ${this.name} attack multiplied by 2 for 2 turns`)
 }
 
 function coinToss (target) {
@@ -25,6 +25,22 @@ function coinToss (target) {
     }
 }
 
-function turn () {
-    
+function turnCheck () {
+    let len = turnqueue.length
+    for (let i = 0; i < len; i++) {
+        if (turnqueue[len - i][1] == currentTurn) {
+            switch (turnqueue[len-9][0]) {
+                case "defence":
+                    turnqueue[len-9][2].defence /= 1.2
+                    break;
+                case "hunker":
+                    turnqueue[len-9][2].defence /= 2.5
+                case "strongBlow":
+                    turnqueue[len-9][2].attack /= 2
+                    break
+            }
+            turnqueue.splice(len - i, 1)
+        }
+    }
+    currentTurn++
 }
