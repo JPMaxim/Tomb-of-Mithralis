@@ -83,7 +83,7 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
         }
         turnCheck(player,turnqueue,currentTurn)
         currentTurn++
-        /*console.table({
+        console.table({
             name: player.name,
             attack: player.attack,
             turn: currentTurn,
@@ -92,6 +92,6 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
             defence: player.defence,
             specialName: player.specialName,
             queue: turnqueue
-        })*/
+        })
     }
 }
