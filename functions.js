@@ -44,3 +44,7 @@ export function turnCheck () {
     }
     currentTurn++
 }
+
+export function combat () {
+    
+}
