@@ -7,7 +7,8 @@ class character {
     }
 
     Defend() {
-        defense += 4
+        defense *= 1.2
+        turnqueue.push(["defend",turn + 1, this])
         console.log(`${this.name} defended \n  ${this.name}'s defense increased by 4`)
     }
 }
