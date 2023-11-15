@@ -1,7 +1,7 @@
 import { combat,heal,hunkerDown,strongBlow,chargeAttack,coinToss    /*<-- function names here*/} from "./functions.js"
 import { Enemy,Player      /*<-- class names here*/} from "./classes.js"
 import {difficultyInquiry, classInquiry , nameInquiry, wait      /*<-- inquiry funciton names*/} from "./inquiries.js"
-import {combatOneHint      /*<-- dialogue variable names*/} from "./dialogue.js"
+import {combatOneHint, combatTwoHint, combatThreeHint      /*<-- dialogue variable names*/} from "./dialogue.js"
 
 // run difficulty inquiry
 let difficulty = await difficultyInquiry();
@@ -57,7 +57,7 @@ await wait("dialogue before second fight")
 // Combat 2 Hint
 if (difficulty.difficulty == "Easy - (hints included)") {
     await wait("Hint for Combat Two:");
-    console.log("The second monster you will face has a charged attack trait that deals heavy damage. Defending the turn after it charges can reduce the damage.")
+    console.log(combatTwoHint)
 }
 // Combat Two
 await combat(player,monsterTwo,turnqueue,currentTurn)
@@ -73,7 +73,7 @@ await wait("dialogue before third fight")
 // Combat 3 Hint
 if (difficulty.difficulty == "Easy - (hints included)") {
     await wait("Hint for Combat Three:");
-    console.log("The third and final monster you will face has a large amount of health along with a huge defense bonus while inside it's shell. However, it also has is a bit of an anger problem. If you were to taunt it enough, it may come out of it's shell in a rage. Luring the monster out of it's shell would significantly drop it's defense.")
+    console.log(combatThreeHint)
 }
 // Combat Three
 await combat(player,monsterThree,turnqueue,currentTurn)
