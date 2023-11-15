@@ -1,4 +1,5 @@
 import {playerTurn, wait, tauntInquiry, Direction     /*<-- inquiry funciton names*/} from "./inquiries.js"
+import {shelldonTauntedOne, shelldonTauntedTwo, shelldonTauntedThree  /*<-- dialogue variable names*/} from "./dialogue.js"
 import chalk from "chalk"
 
 export function heal (target,turnqueue,currentTurn) { // elf special ability
@@ -64,6 +65,8 @@ export function turnCheck (player,turnqueue,currentTurn) { // checks the queue f
 }
 
 export async function combat (player,enemy,turnqueue,currentTurn) {
+    //local varaible to track how many times taunt has been used
+    let tauntCount = 0; 
     
     while (player.health > 0 && enemy.health > 0) {
         let response = await playerTurn(player)
@@ -82,12 +85,29 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
                 player.special(enemy,turnqueue,currentTurn)
                 break
             case "-Taunt":
+                tauntCount += 1;
                 // runs inquiry and then passes the users input into 'Taunt' function
                 let customTaunt = await tauntInquiry();
                 // reduces enemy defense stat and passes the old and new value to Taunt() so it will log to the user
+                let shelldonResponse = null;
                 let oldDefense = enemy.defence;
-                enemy.defence -= 2;
-                player.Taunt(enemy, customTaunt.taunt, oldDefense, enemy.defence);
+                if (enemy.trait == "defence") { // shelldon
+                    switch (tauntCount) {
+                        case 1:
+                            shelldonResponse = shelldonTauntedOne;
+                            break;
+                        case 2:
+                            shelldonResponse = shelldonTauntedTwo;
+                            break;
+                        case 3:
+                            shelldonResponse = shelldonTauntedThree;
+                            enemy.defence = 5;
+                            break;
+                    }
+                } else { // non shelldon
+                    enemy.defence -= 2;
+                }
+                player.Taunt(enemy, customTaunt.taunt, oldDefense, enemy.defence, shelldonResponse);
                 break
         }
         console.log("")
