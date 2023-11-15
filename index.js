@@ -26,7 +26,7 @@ const monsterThree = new Enemy(100, 10, 25, "monsterThree", "defence", character
 
 //health, attack, defence, special, specialName, name
 
-
+let choice = characterClass.class;
 let player
 if ( choice =="Elf - (Health Specialist)") {player = new Player(125,15,15,heal,"Heal", characterName.name);}
  else if (choice == "Dwarf - (Defense Specialist)" ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);}
