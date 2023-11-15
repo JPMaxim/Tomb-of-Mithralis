@@ -1,0 +1,1 @@
+export const combatOneHint = "The first monster you will face has a stealth trait. A heavy attack might be too slow for this one."
