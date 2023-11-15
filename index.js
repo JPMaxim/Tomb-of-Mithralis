@@ -17,15 +17,11 @@ let characterName = await nameInquiry();
 let turnqueue = []
 let currentTurn = 0
 
-// create Monster 1
-// health, attack, defence, trait, name, playerName
+// Create Monster Objects
+// health, attack, defence, name, trait, playerName
 const monsterOne = new Enemy(50, 10, 25, "Goblin Scout", "stealth", characterName.name)
-// create Monster 2
 const monsterTwo = new Enemy(75, 10, 25, "Minotaur", "chargedAttack", characterName.name)
-// create Monster 3
 const monsterThree = new Enemy(100, 10, 75, "Shelldon", "defence", characterName.name)
-
-//health, attack, defence, special, specialName, name
 
 let choice = characterClass.class;
 let player

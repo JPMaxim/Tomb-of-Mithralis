@@ -69,8 +69,18 @@ export class Player extends Character {
         }
     }
 
-    Taunt(target,taunt,oldDefense, newDefense) {
-        console.log(`${this.name} taunts ${target.name}: \n  "${taunt}"
-        ${target.name}'s defense dropped from ${oldDefense}% to ${newDefense}% due to emotional damage.`)
+    Taunt(target,taunt,oldDefense, newDefense, tauntResponse) {
+        if (typeof(tauntResponse) != "string") { // non sheeldon taunts
+            console.log(`${this.name} taunts ${target.name}: \n  "${taunt}"
+            ${target.name}'s defense dropped from ${oldDefense}% to ${newDefense}% due to emotional damage.`)
+        } else { // shelldon taunt
+            console.log(`${this.name} taunts ${target.name}: \n  "${taunt}"
+            ${tauntResponse}`)
+            if (tauntResponse.charAt(0) == "P") {
+                console.log(`${target.name}'s defense dropped from ${oldDefense}% to ${newDefense}% due to severe emotional damage.`)
+            } else {
+                console.log(`${target.name}'s defense remained the same`)
+            }
+        }
     }
 }
