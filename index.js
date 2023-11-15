@@ -29,14 +29,15 @@ const monsterThree = new Enemy(100, 10, 75, "Shelldon", "defence", characterName
 
 let choice = characterClass.class;
 let player
-if ( choice =="Elf - (Health Specialist)") {player = new Player(125,15,15,heal,"Heal", characterName.name);}
- else if (choice == "Dwarf - (Defense Specialist)" ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);}
-  else if (choice == "Human - (Attack Specialist)") {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);}
-   else if (choice == "Wizard - (Luck Specialist)") {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name);}
 
-await wait("dialogue for start")
-
-await wait("dialogue before first fight")
+if ( choice =="Elf - (Health Specialist)") {player = new Player(125,15,15,heal,"Heal", characterName.name);
+await wait ("Elf dialogue before first fight");}
+ else if (choice == "Dwarf - (Defense Specialist)" ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);
+await wait ("Dwarf dialogue before first fight");}
+  else if (choice == "Human - (Attack Specialist)") {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);
+await wait ("Human dialogue before first fight");}
+   else if (choice == "Wizard - (Luck Specialist)") {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name); 
+await wait ("wizard dialogue before first fight");}
 
 // Combat 1 Hint
 if (difficulty.difficulty == "Easy - (hints included)") {
@@ -50,9 +51,16 @@ await combat(player,monsterOne,turnqueue,currentTurn)
 turnqueue.splice(0,turnqueue.length)
 currentTurn = 0
 
-await wait("dialogue for enter second room")
-
-await wait("dialogue before second fight")
+await wait("dialogue for entering the second room")
+if(choice == "Elf - (Health Specialist)"){
+ await wait ("Elf dialogue before second fight");  
+} else if (choice =="Dwarf - (Defense Specialist)") {
+   await wait ("dwarf dialogue before second fight");
+} else if (choice == "Human - (Attack Specialist)"){
+   await wait ("human dialogue before second fight");
+} else if (choice == "Wizard - (Luck Specialist)"){
+   await wait ("wizard dialogue before second fight");
+}
 
 // Combat 2 Hint
 if (difficulty.difficulty == "Easy - (hints included)") {
@@ -64,11 +72,19 @@ await combat(player,monsterTwo,turnqueue,currentTurn)
 
 // reset turnqueue and currentTurn
 turnqueue.splice(0,turnqueue.length)
+
 currentTurn = 0
 
-await wait("dialogue for enter third room")
-
-await wait("dialogue before third fight")
+await wait("dialogue for entering the third room")
+if(choice == "Elf - (Health Specialist)"){
+ await wait ("Elf dialogue before third fight");  
+} else if (choice =="Dwarf - (Defense Specialist)") {
+   await wait ("dwarf dialogue before third fight");
+} else if (choice == "Human - (Attack Specialist)"){
+   await wait ("human dialogue before third fight");
+} else if (choice == "Wizard - (Luck Specialist)"){
+   await wait ("wizard dialogue before third fight");
+}
 
 // Combat 3 Hint
 if (difficulty.difficulty == "Easy - (hints included)") {
