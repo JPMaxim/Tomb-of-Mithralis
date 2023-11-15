@@ -51,7 +51,7 @@ export function turnCheck (player,turnqueue,currentTurn) {
                     console.log(`${turnqueue[len - i - 1][2].name}'s attack goes back down`)
                     break
                 case "charge":
-                    player.health -= turnqueue[len - i - 1][2] 
+                    player.health -= (turnqueue[len - i - 1][2].attack * (1 - (player.defence /100)))
                     console.log(`${turnqueue[len - i - 1][2].name}'s executes their charge attack`)
                     break
             }
