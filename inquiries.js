@@ -35,3 +35,12 @@ export async function playerTurn(obj) {
         choices: ["-Light Attack", "-Heavy Attack", "-Defend", `-${obj.specialName}`, "-Taunt"]
     })
 }
+
+// Custom Taunt Inquiry
+export async function tauntInquiry() {
+    return await inquirer.prompt({
+        name: "taunt",
+        type: "input",
+        message: "What will you say to taunt the enemy?"
+    })
+}

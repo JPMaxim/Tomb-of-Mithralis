@@ -68,7 +68,8 @@ export class Player extends Character {
 
     }
 
-    Taunt(target,taunt) {
-        console.log(`${this.name} taunts ${target.name} \n  "${taunt}"`)
+    Taunt(target,taunt,oldDefense, newDefense) {
+        console.log(`${this.name} taunts ${target.name}: \n  "${taunt}"
+        ${target.name}'s defense dropped from ${oldDefense}% to ${newDefense}% due to emotional damage.`)
     }
 }
