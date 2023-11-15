@@ -18,7 +18,7 @@ await wait(chalk.yellow(`#### ##   ## ##   ##   ##  ### ##             ## ##   #
    ####     ## ##   ##   ##  ### ##             ## ##   ####              ##   ##    ##      ####    ###  ##  #### ##  ###  ##  ### ###    ####    ## ##   `))
 
 // mark the time at which the game starts
-const gameStart = new Date();
+export const gameStart = new Date();
 
 // run difficulty inquiry
 let difficulty = await difficultyInquiry();
@@ -133,12 +133,12 @@ await wait("victory dialogue")
 if (await Puzzle()) {
     await wait("you got out with the artifact dialogue");
     // log time spent in game
-    console.log(getTimeSpent(gameStart, new Date));
+    console.log(getTimeSpent(gameStart, new Date, true));
     process.exit(0);
 }
 else {
     await wait("died in the maze");
     // log time spent in game
-    console.log(getTimeSpent(gameStart, new Date));
+    console.log(getTimeSpent(gameStart, new Date, false));
     process.exit(0);
 }
