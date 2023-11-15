@@ -255,10 +255,21 @@ function Show(layout,coords) {
         tempArr = []
         for (let x = 0; x < 12; x++) {
             if ((i >= coords[0] - 2 &&  i <= coords[0] + 2) && (x >= coords[1] - 2 &&  x <= coords[1] + 2)) {
-                tempArr[x] = layout[i][x]
+                if (layout[i][x] == "O") {
+                    tempArr[x] = chalk.rgb(112, 128, 158)(layout[i][x])
+                }
+                else if (layout[i][x] == "W") {
+                    tempArr[x] = chalk.rgb(173, 149, 109)(layout[i][x])
+                }
+                else if (layout[i][x] == "X") {
+                    tempArr[x] = chalk.green(layout[i][x])
+                }
+                else if (layout[i][x] == "P") {
+                    tempArr[x] = chalk.yellow(layout[i][x])
+                }
             } 
             else {
-                tempArr.push("#")
+                tempArr.push(chalk.blackBright("#"))
             }
         }
         showArr[i] = tempArr
