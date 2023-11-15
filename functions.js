@@ -1,4 +1,5 @@
 import {playerTurn, wait, tauntInquiry, Direction     /*<-- inquiry funciton names*/} from "./inquiries.js"
+import chalk from "chalk"
 
 export function heal (target,turnqueue,currentTurn) { // elf special ability
     this.health += 20
@@ -88,12 +89,13 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
                 player.Taunt(enemy, customTaunt.taunt, oldDefense, enemy.defence);
                 break
         }
+        console.log("")
         enemyTurn(player,enemy,turnqueue,currentTurn)
         turnCheck(player,turnqueue,currentTurn)
         currentTurn++
         if (player.health > 0 && enemy.health > 0) {
-            console.log(`\n  ${player.name}: HP-${player.health} DEF-${player.defence} ATT-${player.attack}`)
-            console.log(`  ${enemy.name}: HP-${enemy.health} DEF-${enemy.defence} ATT-${enemy.attack} \n`)
+            console.log(`\n  ${player.name}: HP-${chalk.greenBright(player.health)} DEF-${chalk.blueBright(player.defence)} ATT-${chalk.red(player.attack)}`)
+            console.log(`  ${enemy.name}: HP-${chalk.greenBright(enemy.health)} DEF-${chalk.blueBright(enemy.defence)} ATT-${chalk.red(enemy.attack)} \n`)
         }
         /*console.table({
             name: player.name,
@@ -108,7 +110,7 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
         await wait("")
     }
     if (player.health <= 0) {
-        console.log(`${enemy.name} killed ${player.name}\n  GAME OVER`)
+        console.log(`${enemy.name}` + ` killed ${player.name}\n  GAME OVER`)
         return false
     }
     else if (enemy.health <= 0) {
