@@ -1,4 +1,4 @@
-import {playerTurn, wait      /*<-- inquiry funciton names*/} from "./inquiries.js"
+import {playerTurn, wait, tauntInquiry      /*<-- inquiry funciton names*/} from "./inquiries.js"
 
 export function heal (target,turnqueue,currentTurn) { // elf special ability
     this.health += 20
@@ -80,7 +80,12 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
                 player.special(enemy,turnqueue,currentTurn)
                 break
             case "-Taunt":
-                player.Taunt(enemy,"test")
+                // runs inquiry and then passes the users input into 'Taunt' function
+                let customTaunt = await tauntInquiry();
+                // reduces enemy defense stat and passes the old and new value to Taunt() so it will log to the user
+                let oldDefense = enemy.defence;
+                enemy.defence -= 2;
+                player.Taunt(enemy, customTaunt.taunt, oldDefense, enemy.defence);
                 break
         }
         enemyTurn(player,enemy,turnqueue,currentTurn)

@@ -36,6 +36,16 @@ export async function playerTurn(obj) {
     })
 }
 
+
+// Custom Taunt Inquiry
+export async function tauntInquiry() {
+    return await inquirer.prompt({
+        name: "taunt",
+        type: "input",
+        message: "What will you say to taunt the enemy?"
+    })
+}
+// Waits for you to press enter in between console logs
 export async function wait(words) {
     return await inquirer.prompt({
         name: "result",
