@@ -161,7 +161,7 @@ export async function Puzzle() {
     let time = 120
 
     await wait(`You need to get out quick\nOnce you press enter you will have 2 minutes to escape the maze\n  P- player\n  O- walkable space\n  W- a wall\n  X- Your Exit`)
-    for (let i = 0; i < 120; i++) {
+    for (let i = 1; i <= 120; i++) {
         setTimeout(function(){ time -= 1 }, i * 1000) 
     }
     while (escape == false && time > 0) {
