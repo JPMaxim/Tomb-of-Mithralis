@@ -24,7 +24,7 @@ export class Enemy extends Character {
 
     Attack(target) {
         target.health -= Math.round(this.attack * (1 - (target.defence / 100)))
-        console.log(`${this.name} attacks! \n  ${this.name} dealt ${Math.round(this.attack * (1 - (target.defence / 100)))} to ${this.playerName}`)
+        console.log(`${this.name} attacks! \n  ${this.name} dealt ${Math.round(this.attack * (1 - (target.defence / 100)))} damage to ${this.playerName}`)
     }
 
     StanceChange() {
