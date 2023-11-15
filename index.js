@@ -41,36 +41,21 @@ let human = chalk.red("Human - (Attack Specialist)")
 let wizard = chalk.rgb(138, 19, 187)("Wizard - (Luck Specialist)")
 
 
-if ( choice =="Elf - (Health Specialist)") {player = new Player(125,15,15,heal,"Heal", characterName.name);
-await wait ("Elf dialogue for intro scene");
-console.log(elfIntroScene)}
- else if (choice == "Dwarf - (Defense Specialist)" ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);
-await wait ("Dwarf dialogue for intro scene");
-console.log(dwarfIntroScene)}
-  else if (choice == "Human - (Attack Specialist)") {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);
-await wait ("Human dialogue for intro scene ");
-console.log(humanIntroScene)}
-   else if (choice == "Wizard - (Luck Specialist)") {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name); 
-await wait ("wizard dialogue for intro scene");
-console.log(wizardIntroScene)}
 
-if ( choice =="Elf - (Health Specialist)") {await wait ("Elf dialogue before first fight");}
- else if (choice == "Dwarf - (Defense Specialist)" ) {await wait ("Dwarf dialogue before first fight");}
-  else if (choice == "Human - (Attack Specialist)") {await wait ("Human dialogue before first fight");}
-   else if (choice == "Wizard - (Luck Specialist)") {await wait ("wizard dialogue before first fight");}
-=======
 if ( choice == elf) {player = new Player(125,15,15,heal,"Heal", characterName.name);
-await wait ("Elf dialogue before first fight");
-console.log(elfIntroScene)}
- else if (choice == dwarf ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);
-await wait ("Dwarf dialogue before first fight");
-console.log(dwarfIntroScene)                            }
-  else if (choice == human) {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);
-await wait ("Human dialogue before first fight");
- console.log(humanIntroScene)                           }
-   else if (choice == wizard) {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name); 
-await wait ("wizard dialogue before first fight");
-console.log(wizardIntroScene)                              }
+    await wait(elfIntroScene)
+    await wait ("Elf dialogue before first fight");}
+
+else if (choice == dwarf ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);
+    await wait(dwarfIntroScene)
+    await wait ("Dwarf dialogue before first fight");}
+
+else if (choice == human) {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);
+    await wait(humanIntroScene)
+    await wait ("Human dialogue before first fight");}
+else if (choice == wizard) {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name); 
+    await wait(wizardIntroScene)
+    await wait ("wizard dialogue before first fight");}
 
 
 // Combat 1 Hint
