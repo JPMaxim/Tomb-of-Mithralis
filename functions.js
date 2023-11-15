@@ -74,19 +74,19 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
         let response = await playerTurn(player)
         console.log("")
         switch (response.playerChoice) {
-            case "-Light Attack":
+            case chalk.rgb(206, 94, 82)("-Light Attack"):
                 player.lightAttack(enemy)
                 break
-            case "-Heavy Attack":
+            case chalk.rgb(227, 58, 39)("-Heavy Attack"):
                 player.heavyAttack(enemy)
                 break
-            case "-Defend":
+            case chalk.blue("-Defend"):
                 player.Defend(turnqueue,currentTurn)
                 break
             case chalk.rgb(255, 107, 15)(`-${player.specialName}`):
                 player.special(enemy,turnqueue,currentTurn)
                 break
-            case "-Taunt":
+            case chalk.rgb(233, 9, 170)("-Taunt"):
                 tauntCount += 1;
                 // runs inquiry and then passes the users input into 'Taunt' function
                 let customTaunt = await tauntInquiry();

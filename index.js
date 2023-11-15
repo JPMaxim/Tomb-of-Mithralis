@@ -60,8 +60,8 @@ else if (choice == wizard) {player = new Player(100,10,16,coinToss,"Coin Toss", 
 
 // Combat 1 Hint
 if (difficulty.difficulty == "Easy - (hints included)") {
-    await wait("Hint for Combat One:");
-    console.log(combatOneHint)
+    console.log("Hint for Combat One:");
+    await wait(combatOneHint)
 }
 // Combat One
 if(!await combat(player,monsterOne,turnqueue,currentTurn)) {
@@ -85,8 +85,8 @@ if(choice == elf){
 
 // Combat 2 Hint
 if (difficulty.difficulty == "Easy - (hints included)") {
-    await wait("Hint for Combat Two:");
-    console.log(combatTwoHint)
+    console.log("Hint for Combat Two:");
+    await wait(combatTwoHint)
 }
 // Combat Two
 if(!await combat(player,monsterTwo,turnqueue,currentTurn)) {
@@ -111,8 +111,8 @@ if(choice == elf){
 
 // Combat 3 Hint
 if (difficulty.difficulty == "Easy - (hints included)") {
-    await wait("Hint for Combat Three:");
-    console.log(combatThreeHint)
+    console.log("Hint for Combat Three:");
+    await wait(combatThreeHint)
 }
 // Combat Three
 if (!await combat(player,monsterThree,turnqueue,currentTurn)) {
@@ -123,7 +123,9 @@ await wait("victory dialogue")
 
 if (await Puzzle()) {
     await wait("you got out with the artifact dialogue");
+    process.exit(0);
 }
 else {
     await wait("died in the maze");
+    process.exit(0);
 }
