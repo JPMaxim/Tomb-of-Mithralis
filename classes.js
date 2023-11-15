@@ -7,7 +7,7 @@ class Character {
     }
 
     Defend(turnqueue,currentTurn) {
-        this.defence = this.defence * 1.2
+        this.defence *= 1.2
         let arr = ["defence",currentTurn + 1, this]
         turnqueue.push(arr)
         console.log(`${this.name} defended \n  ${this.name}'s defence increased by 20% for 1 turn`)
@@ -63,9 +63,8 @@ export class Player extends Character {
             ${target.name} dodged! "Ha, you move slower than my grandma, you're a fool if you think that will hit me."`)
         } else {
             target.health -= Math.round((this.attack * 1.25) * (1 - (target.defence / 100)))
-            console.log(`${this.name} does a heavy attack! \n  ${this.name} dealt ${Math.round((this.attack * 1.25) * (1 (target.defence / 100)))} damage to ${target.name}`)            
+            console.log(`${this.name} does a heavy attack! \n  ${this.name} dealt ${Math.round((this.attack * 1.25) * (1 - (target.defence / 100)))} damage to ${target.name}`)            
         }
-
     }
 
     Taunt(target,taunt) {

@@ -35,3 +35,11 @@ export async function playerTurn(obj) {
         choices: ["-Light Attack", "-Heavy Attack", "-Defend", `-${obj.specialName}`, "-Taunt"]
     })
 }
+
+export async function wait(words) {
+    return await inquirer.prompt({
+        name: "result",
+        type: "confirm",
+        message: `${words}\nPress enter to continue`,
+    })
+}
