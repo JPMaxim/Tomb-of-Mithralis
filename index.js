@@ -1,4 +1,4 @@
-import { combat,heal,hunkerDown,strongBlow,chargeAttack,coinToss,Puzzle    /*<-- function names here*/} from "./functions.js"
+import { combat,heal,hunkerDown,strongBlow,chargeAttack,coinToss,Puzzle, getTimeSpent    /*<-- function names here*/} from "./functions.js"
 import { Enemy,Player      /*<-- class names here*/} from "./classes.js"
 import {difficultyInquiry, classInquiry , nameInquiry, wait      /*<-- inquiry funciton names*/} from "./inquiries.js"
 
@@ -10,6 +10,9 @@ wizardIntroScene} from "./dialogue.js"
 import chalk from "chalk";
 
 
+
+// mark the time at which the game starts
+const gameStart = new Date();
 
 // run difficulty inquiry
 let difficulty = await difficultyInquiry();
@@ -64,9 +67,9 @@ if (difficulty.difficulty == "Easy - (hints included)") {
     await wait(combatOneHint)
 }
 // Combat One
-if(!await combat(player,monsterOne,turnqueue,currentTurn)) {
-    process.exit(0);
-}
+// if(!await combat(player,monsterOne,turnqueue,currentTurn)) {
+//     process.exit(0);
+// }
 
 // reset turnqueue and currentTurn
 turnqueue.splice(0,turnqueue.length)
@@ -89,9 +92,9 @@ if (difficulty.difficulty == "Easy - (hints included)") {
     await wait(combatTwoHint)
 }
 // Combat Two
-if(!await combat(player,monsterTwo,turnqueue,currentTurn)) {
-    process.exit(0);
-}
+// if(!await combat(player,monsterTwo,turnqueue,currentTurn)) {
+//     process.exit(0);
+// }
 
 // reset turnqueue and currentTurn
 turnqueue.splice(0,turnqueue.length)
@@ -123,9 +126,13 @@ await wait("victory dialogue")
 
 if (await Puzzle()) {
     await wait("you got out with the artifact dialogue");
+    // log time spent in game
+    console.log(getTimeSpent(gameStart, new Date));
     process.exit(0);
 }
 else {
     await wait("died in the maze");
+    // log time spent in game
+    console.log(getTimeSpent(gameStart, new Date));
     process.exit(0);
 }
