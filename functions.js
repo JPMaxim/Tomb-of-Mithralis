@@ -190,10 +190,6 @@ export async function Puzzle() {
                 if (layout[coords[0] + 1][coords[1]] == "W") {
                     console.log("You've hit a wall")
                 }
-                else if (layout[coords[0] + 1][coords[1]] == "X") {
-                    console.log("you got out!")
-                    return true
-                }
                 else {
                     layout[coords[0] + 1][coords[1]] = "P"
                     layout[coords[0]][coords[1]] = "O"
@@ -203,10 +199,6 @@ export async function Puzzle() {
                 if (layout[coords[0]][coords[1] - 1] == "W") {
                     console.log("You've hit a wall")
                 }
-                else if (layout[coords[0]][coords[1] - 1] == "X") {
-                    console.log("you got out!")
-                    return true
-                }
                 else {
                     layout[coords[0]][coords[1] - 1] = "P"
                     layout[coords[0]][coords[1]] = "O"
@@ -215,10 +207,6 @@ export async function Puzzle() {
             case "RIGHT":
                 if (layout[coords[0]][coords[1] + 1] == "W") {
                     console.log("You've hit a wall")
-                }
-                else if (layout[coords[0]][coords[1] + 1] == "X") {
-                    console.log("you got out!")
-                    return true
                 }
                 else {
                     layout[coords[0]][coords[1] + 1] = "P"
