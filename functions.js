@@ -267,3 +267,13 @@ function Show(layout,coords) {
         console.log(arr.join(" "))
     }
 }
+
+// Calculate time in game Function
+export function getTimeSpent(start, end) {
+    let timeSpent =  end - start;
+    let minutesFloat = (timeSpent / 1000 / 60).toFixed(2)
+    let minutes = Math.floor(minutesFloat);
+    let splitSecs = minutesFloat.toString().split(".")
+    let seconds = parseInt(splitSecs[1])
+    return `You spent ${minutes} minutes, ${seconds} seconds to complete 'Tomb of Mythralis'. Congratulations, and thanks for playing!`
+}
