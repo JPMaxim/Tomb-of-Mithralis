@@ -73,9 +73,9 @@ if (difficulty.difficulty == "Easy - (hints included)") {
     await wait(combatOneHint)
 }
 // Combat One
-// if(!await combat(player,monsterOne,turnqueue,currentTurn)) {
-//     process.exit(0);
-// }
+if(!await combat(player,monsterOne,turnqueue,currentTurn)) {
+    process.exit(0);
+}
 
 // reset turnqueue and currentTurn
 turnqueue.splice(0,turnqueue.length)
@@ -98,9 +98,9 @@ if (difficulty.difficulty == "Easy - (hints included)") {
     await wait(combatTwoHint)
 }
 // Combat Two
-// if(!await combat(player,monsterTwo,turnqueue,currentTurn)) {
-//     process.exit(0);
-// }
+if(!await combat(player,monsterTwo,turnqueue,currentTurn)) {
+    process.exit(0);
+}
 
 // reset turnqueue and currentTurn
 turnqueue.splice(0,turnqueue.length)
