@@ -1,7 +1,15 @@
 import { combat,heal,hunkerDown,strongBlow,chargeAttack,coinToss,Puzzle, getTimeSpent    /*<-- function names here*/} from "./functions.js"
 import { Enemy,Player      /*<-- class names here*/} from "./classes.js"
 import {difficultyInquiry, classInquiry , nameInquiry, wait      /*<-- inquiry funciton names*/} from "./inquiries.js"
-import {combatOneHint, combatTwoHint, combatThreeHint      /*<-- dialogue variable names*/} from "./dialogue.js"
+
+import {combatOneHint, combatTwoHint, combatThreeHint,      /*<-- dialogue variable names*/
+elfIntroScene,
+dwarfIntroScene,
+humanIntroScene,
+wizardIntroScene} from "./dialogue.js"
+import chalk from "chalk";
+
+
 
 // mark the time at which the game starts
 const gameStart = new Date();
@@ -26,22 +34,37 @@ const monsterOne = new Enemy(50, 10, 25, "Goblin Scout", "stealth", characterNam
 const monsterTwo = new Enemy(75, 10, 25, "Minotaur", "chargedAttack", characterName.name)
 const monsterThree = new Enemy(100, 10, 75, "Shelldon", "defence", characterName.name)
 
+//health, attack, defence, special, specialName, name
 let choice = characterClass.class;
-let player
 
-if ( choice =="Elf - (Health Specialist)") {player = new Player(125,15,15,heal,"Heal", characterName.name);
-await wait ("Elf dialogue before first fight");}
- else if (choice == "Dwarf - (Defense Specialist)" ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);
-await wait ("Dwarf dialogue before first fight");}
-  else if (choice == "Human - (Attack Specialist)") {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);
-await wait ("Human dialogue before first fight");}
-   else if (choice == "Wizard - (Luck Specialist)") {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name); 
-await wait ("wizard dialogue before first fight");}
+let player
+let elf = chalk.greenBright("Elf - (Health Specialist)")
+let dwarf = chalk.blueBright("Dwarf - (Defense Specialist)")
+let human = chalk.red("Human - (Attack Specialist)")
+let wizard = chalk.rgb(138, 19, 187)("Wizard - (Luck Specialist)")
+
+
+
+if ( choice == elf) {player = new Player(125,15,15,heal,"Heal", characterName.name);
+    await wait(elfIntroScene)
+    await wait ("Elf dialogue before first fight");}
+
+else if (choice == dwarf ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);
+    await wait(dwarfIntroScene)
+    await wait ("Dwarf dialogue before first fight");}
+
+else if (choice == human) {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);
+    await wait(humanIntroScene)
+    await wait ("Human dialogue before first fight");}
+else if (choice == wizard) {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name); 
+    await wait(wizardIntroScene)
+    await wait ("wizard dialogue before first fight");}
+
 
 // Combat 1 Hint
 if (difficulty.difficulty == "Easy - (hints included)") {
-    await wait("Hint for Combat One:");
-    console.log(combatOneHint)
+    console.log("Hint for Combat One:");
+    await wait(combatOneHint)
 }
 // Combat One
 // if(!await combat(player,monsterOne,turnqueue,currentTurn)) {
@@ -53,20 +76,20 @@ turnqueue.splice(0,turnqueue.length)
 currentTurn = 0
 
 await wait("dialogue for entering the second room")
-if(choice == "Elf - (Health Specialist)"){
+if(choice == elf){
  await wait ("Elf dialogue before second fight");  
-} else if (choice =="Dwarf - (Defense Specialist)") {
+} else if (choice == dwarf) {
    await wait ("dwarf dialogue before second fight");
-} else if (choice == "Human - (Attack Specialist)"){
+} else if (choice == human){
    await wait ("human dialogue before second fight");
-} else if (choice == "Wizard - (Luck Specialist)"){
+} else if (choice == wizard){
    await wait ("wizard dialogue before second fight");
 }
 
 // Combat 2 Hint
 if (difficulty.difficulty == "Easy - (hints included)") {
-    await wait("Hint for Combat Two:");
-    console.log(combatTwoHint)
+    console.log("Hint for Combat Two:");
+    await wait(combatTwoHint)
 }
 // Combat Two
 // if(!await combat(player,monsterTwo,turnqueue,currentTurn)) {
@@ -79,20 +102,20 @@ turnqueue.splice(0,turnqueue.length)
 currentTurn = 0
 
 await wait("dialogue for entering the third room")
-if(choice == "Elf - (Health Specialist)"){
+if(choice == elf){
  await wait ("Elf dialogue before third fight");  
-} else if (choice =="Dwarf - (Defense Specialist)") {
+} else if (choice == dwarf) {
    await wait ("dwarf dialogue before third fight");
-} else if (choice == "Human - (Attack Specialist)"){
+} else if (choice == human){
    await wait ("human dialogue before third fight");
-} else if (choice == "Wizard - (Luck Specialist)"){
+} else if (choice == wizard){
    await wait ("wizard dialogue before third fight");
 }
 
 // Combat 3 Hint
 if (difficulty.difficulty == "Easy - (hints included)") {
-    await wait("Hint for Combat Three:");
-    console.log(combatThreeHint)
+    console.log("Hint for Combat Three:");
+    await wait(combatThreeHint)
 }
 // Combat Three
 if (!await combat(player,monsterThree,turnqueue,currentTurn)) {
@@ -102,10 +125,14 @@ if (!await combat(player,monsterThree,turnqueue,currentTurn)) {
 await wait("victory dialogue")
 
 if (await Puzzle()) {
-    await wait("you got out with the artifact dialogue")
+    await wait("you got out with the artifact dialogue");
+    // log time spent in game
+    console.log(getTimeSpent(gameStart, new Date));
+    process.exit(0);
 }
 else {
     await wait("died in the maze");
+    // log time spent in game
+    console.log(getTimeSpent(gameStart, new Date));
+    process.exit(0);
 }
-// log time spent in game
-console.log(getTimeSpent(gameStart, new Date));

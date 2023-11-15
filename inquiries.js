@@ -1,4 +1,5 @@
 import inquirer from 'inquirer';
+import chalk from "chalk";
 // Difficulty Inquiry
 export async function difficultyInquiry() {
     return await inquirer.prompt({
@@ -14,7 +15,7 @@ export async function classInquiry() {
         name: "class",
         type: "list",
         message: "Choose which Character Class you would like to play as:",
-        choices: ["Elf - (Health Specialist)", "Dwarf - (Defense Specialist)", "Human - (Attack Specialist)", "Wizard - (Luck Specialist)"]
+        choices: [chalk.greenBright("Elf - (Health Specialist)"), chalk.blueBright("Dwarf - (Defense Specialist)"), chalk.red("Human - (Attack Specialist)"), chalk.rgb(138, 19, 187)("Wizard - (Luck Specialist)")]
     })
 }
 // Character Name Inquiry
@@ -32,7 +33,7 @@ export async function playerTurn(obj) {
         name: "playerChoice",
         type: "list",
         message: "Choose your move:",
-        choices: ["-Light Attack", "-Heavy Attack", "-Defend", `-${obj.specialName}`, "-Taunt"]
+        choices: [chalk.rgb(206, 94, 82)("-Light Attack"), chalk.rgb(227, 58, 39)("-Heavy Attack"), chalk.blue("-Defend"), chalk.rgb(255, 107, 15)(`-${obj.specialName}`), chalk.rgb(233, 9, 170)("-Taunt")]
     })
 }
 

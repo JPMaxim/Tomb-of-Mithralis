@@ -4,29 +4,32 @@ import chalk from "chalk"
 
 export function heal (target,turnqueue,currentTurn) { // elf special ability
     this.health += 20
-    console.log(`${this.name} used their special ability HEAL \n  ${this.name} health increased by 20`)
+    console.log(`${this.name} used their special ability ${this.specialName} \n  ${this.name}'s health increased by 20`)
 }
 
 export function hunkerDown (target,turnqueue,currentTurn) { // dwarf special ability
     this.defence *= 2.5
     let arr = ["hunker",currentTurn + 3, this]
     turnqueue.push(arr)
-    console.log(`${this.name} used their special ability HUNKER DOWN \n  ${this.name} defence multiplied by 2.5 for 3 turns`)
+    console.log(`${this.name} used their special ability ${this.specialName} \n  ${this.name}'s defence multiplied by 2.5 for 3 turns`)
 }
 
 export function strongBlow (target,turnqueue,currentTurn) { // human special ability
     this.attack *= 2
     let arr = ["strongBlow",currentTurn + 2, this]
     turnqueue.push(arr)
-    console.log(`${this.name} used their special ability STRONG BLOW \n  ${this.name} attack multiplied by 2 for 2 turns`)
+    console.log(`${this.name} used their special ability ${this.specialName} \n  ${this.name}'s attack multiplied by 2 for 2 turns`)
 }
 
 export function coinToss (target,turnqueue,currentTurn) { // wizard special ability
+    console.log(`${this.name} flips a cursed coin, he picks heads, if he's right he wins again, if he's wrong, this is his final battle`)
     if ((Math.random() * 2) > 1) {
         target.health = 0
+        console.log("heads")
     }
     else {
         this.health = 0
+        console.log("tails")
     }
 }
 
@@ -71,19 +74,19 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
         let response = await playerTurn(player)
         console.log("")
         switch (response.playerChoice) {
-            case "-Light Attack":
+            case chalk.rgb(206, 94, 82)("-Light Attack"):
                 player.lightAttack(enemy)
                 break
-            case "-Heavy Attack":
+            case chalk.rgb(227, 58, 39)("-Heavy Attack"):
                 player.heavyAttack(enemy)
                 break
-            case "-Defend":
+            case chalk.blue("-Defend"):
                 player.Defend(turnqueue,currentTurn)
                 break
-            case `-${player.specialName}`:
+            case chalk.rgb(255, 107, 15)(`-${player.specialName}`):
                 player.special(enemy,turnqueue,currentTurn)
                 break
-            case "-Taunt":
+            case chalk.rgb(233, 9, 170)("-Taunt"):
                 tauntCount += 1;
                 // runs inquiry and then passes the users input into 'Taunt' function
                 let customTaunt = await tauntInquiry();
@@ -111,6 +114,7 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
         }
         console.log("")
         enemyTurn(player,enemy,turnqueue,currentTurn)
+        console.log("")
         turnCheck(player,turnqueue,currentTurn)
         currentTurn++
         if (player.health > 0 && enemy.health > 0) {
@@ -253,10 +257,21 @@ function Show(layout,coords) {
         tempArr = []
         for (let x = 0; x < 12; x++) {
             if ((i >= coords[0] - 2 &&  i <= coords[0] + 2) && (x >= coords[1] - 2 &&  x <= coords[1] + 2)) {
-                tempArr[x] = layout[i][x]
+                if (layout[i][x] == "O") {
+                    tempArr[x] = chalk.rgb(112, 128, 158)(layout[i][x])
+                }
+                else if (layout[i][x] == "W") {
+                    tempArr[x] = chalk.rgb(173, 149, 109)(layout[i][x])
+                }
+                else if (layout[i][x] == "X") {
+                    tempArr[x] = chalk.green(layout[i][x])
+                }
+                else if (layout[i][x] == "P") {
+                    tempArr[x] = chalk.yellow(layout[i][x])
+                }
             } 
             else {
-                tempArr.push("#")
+                tempArr.push(chalk.blackBright("#"))
             }
         }
         showArr[i] = tempArr

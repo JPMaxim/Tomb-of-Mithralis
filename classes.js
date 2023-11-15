@@ -49,7 +49,7 @@ export class Player extends Character {
     constructor (health, attack, defence, special,specialName, name) {
         super(health,attack,defence,name)
         this.special = special
-        this.specialName = specialName
+        this.specialName = chalk.rgb(255, 107, 15)(specialName)
     }
 
     lightAttack(target) {
