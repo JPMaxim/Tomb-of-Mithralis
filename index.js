@@ -2,6 +2,7 @@ import { combat,heal,hunkerDown,strongBlow,chargeAttack,coinToss,Puzzle    /*<--
 import { Enemy,Player      /*<-- class names here*/} from "./classes.js"
 import {difficultyInquiry, classInquiry , nameInquiry, wait      /*<-- inquiry funciton names*/} from "./inquiries.js"
 import {combatOneHint, combatTwoHint, combatThreeHint      /*<-- dialogue variable names*/} from "./dialogue.js"
+import chalk from "chalk";
 
 // run difficulty inquiry
 let difficulty = await difficultyInquiry();
@@ -27,16 +28,20 @@ const monsterThree = new Enemy(100, 10, 75, "Shelldon", "defence", characterName
 
 //health, attack, defence, special, specialName, name
 
-let choice = characterClass.class;
+let choice = characterClass.class
 let player
+let elf = chalk.greenBright("Elf - (Health Specialist)")
+let dwarf = chalk.blueBright("Dwarf - (Defense Specialist)")
+let human = chalk.red("Human - (Attack Specialist)")
+let wizard = chalk.rgb(138, 19, 187)("Wizard - (Luck Specialist)")
 
-if ( choice =="Elf - (Health Specialist)") {player = new Player(125,15,15,heal,"Heal", characterName.name);
+if ( choice == elf) {player = new Player(125,15,15,heal,"Heal", characterName.name);
 await wait ("Elf dialogue before first fight");}
- else if (choice == "Dwarf - (Defense Specialist)" ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);
+ else if (choice == dwarf ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);
 await wait ("Dwarf dialogue before first fight");}
-  else if (choice == "Human - (Attack Specialist)") {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);
+  else if (choice == human) {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);
 await wait ("Human dialogue before first fight");}
-   else if (choice == "Wizard - (Luck Specialist)") {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name); 
+   else if (choice == wizard) {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name); 
 await wait ("wizard dialogue before first fight");}
 
 // Combat 1 Hint
@@ -54,13 +59,13 @@ turnqueue.splice(0,turnqueue.length)
 currentTurn = 0
 
 await wait("dialogue for entering the second room")
-if(choice == "Elf - (Health Specialist)"){
+if(choice == elf){
  await wait ("Elf dialogue before second fight");  
-} else if (choice =="Dwarf - (Defense Specialist)") {
+} else if (choice == dwarf) {
    await wait ("dwarf dialogue before second fight");
-} else if (choice == "Human - (Attack Specialist)"){
+} else if (choice == human){
    await wait ("human dialogue before second fight");
-} else if (choice == "Wizard - (Luck Specialist)"){
+} else if (choice == wizard){
    await wait ("wizard dialogue before second fight");
 }
 
@@ -80,13 +85,13 @@ turnqueue.splice(0,turnqueue.length)
 currentTurn = 0
 
 await wait("dialogue for entering the third room")
-if(choice == "Elf - (Health Specialist)"){
+if(choice == elf){
  await wait ("Elf dialogue before third fight");  
-} else if (choice =="Dwarf - (Defense Specialist)") {
+} else if (choice == dwarf) {
    await wait ("dwarf dialogue before third fight");
-} else if (choice == "Human - (Attack Specialist)"){
+} else if (choice == human){
    await wait ("human dialogue before third fight");
-} else if (choice == "Wizard - (Luck Specialist)"){
+} else if (choice == wizard){
    await wait ("wizard dialogue before third fight");
 }
 
