@@ -109,9 +109,11 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
     }
     if (player.health <= 0) {
         console.log(`${enemy.name} killed ${player.name}\n  GAME OVER`)
+        return false
     }
     else if (enemy.health <= 0) {
         console.log(`${player.name} killed ${enemy.name}\n`)
+        return true
     }
 }
 
@@ -156,10 +158,13 @@ export async function Puzzle() {
     let layout = [line1.split(""),line2.split(""),line3.split(""),line4.split(""),line5.split(""),line6.split(""),line7.split(""),line8.split(""),line9.split(""),line10.split(""),line11.split(""),line12.split(""),]
     let escape = false
     let coords = [0,0]
+    let time = 120
 
-    await wait(`You find yourself in a cave and you need to get out quick\n  P- player\n  O- walkable space\n  W- a wall\n  X- Your Exit`)
-
-    while (escape == false) {
+    await wait(`You need to get out quick\nOnce you press enter you will have 2 minutes to escape the maze\n  P- player\n  O- walkable space\n  W- a wall\n  X- Your Exit`)
+    for (let i = 0; i < 120; i++) {
+        setTimeout(function(){ time -= 1 }, i * 1000) 
+    }
+    while (escape == false && time > 0) {
         for (let i = 0; i < 12; i++) {
             for (let x = 0; x < 12; x++) {
                 if (layout[i][x] == "P") {
@@ -170,6 +175,7 @@ export async function Puzzle() {
         }
 
         Show(layout,coords)
+        console.log(`time remaining: ${time}S`)
 
         let response = await Direction()
         switch (response.result) {
@@ -215,6 +221,7 @@ export async function Puzzle() {
                 break
         }
     }
+    return false
 }
 
 function Show(layout,coords) {
