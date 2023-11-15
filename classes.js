@@ -1,9 +1,11 @@
+import chalk from "chalk"
+
 class Character {
     constructor (health, attack, defence, name) {
         this.health = health
         this.attack = attack
         this.defence = defence
-        this.name = name
+        this.name = chalk.rgb(226, 230, 89)(name)
     }
 
     Defend(turnqueue,currentTurn) {
@@ -19,7 +21,7 @@ export class Enemy extends Character {
         super(health,attack, defence,name)
         this.trait = trait
         this.stance = "defence"
-        this.playerName = playerName
+        this.playerName = chalk.rgb(226, 230, 89)(playerName)
     }
 
     Attack(target) {
@@ -47,7 +49,7 @@ export class Player extends Character {
     constructor (health, attack, defence, special,specialName, name) {
         super(health,attack,defence,name)
         this.special = special
-        this.specialName = specialName
+        this.specialName = chalk.rgb(255, 107, 15)(specialName)
     }
 
     lightAttack(target) {
@@ -67,8 +69,18 @@ export class Player extends Character {
         }
     }
 
-    Taunt(target,taunt,oldDefense, newDefense) {
-        console.log(`${this.name} taunts ${target.name}: \n  "${taunt}"
-        ${target.name}'s defense dropped from ${oldDefense}% to ${newDefense}% due to emotional damage.`)
+    Taunt(target,taunt,oldDefense, newDefense, tauntResponse) {
+        if (typeof(tauntResponse) != "string") { // non sheeldon taunts
+            console.log(`${this.name} taunts ${target.name}: \n  "${taunt}"
+            ${target.name}'s defense dropped from ${oldDefense}% to ${newDefense}% due to emotional damage.`)
+        } else { // shelldon taunt
+            console.log(`${this.name} taunts ${target.name}: \n  "${taunt}"
+            ${tauntResponse}`)
+            if (tauntResponse.charAt(0) == "P") {
+                console.log(`${target.name}'s defense dropped from ${oldDefense}% to ${newDefense}% due to severe emotional damage.`)
+            } else {
+                console.log(`${target.name}'s defense remained the same`)
+            }
+        }
     }
 }

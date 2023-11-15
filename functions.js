@@ -1,30 +1,35 @@
 import {playerTurn, wait, tauntInquiry, Direction     /*<-- inquiry funciton names*/} from "./inquiries.js"
+import {shelldonTauntedOne, shelldonTauntedTwo, shelldonTauntedThree  /*<-- dialogue variable names*/} from "./dialogue.js"
+import chalk from "chalk"
 
 export function heal (target,turnqueue,currentTurn) { // elf special ability
     this.health += 20
-    console.log(`${this.name} used their special ability HEAL \n  ${this.name} health increased by 20`)
+    console.log(`${this.name} used their special ability ${this.specialName} \n  ${this.name}'s health increased by 20`)
 }
 
 export function hunkerDown (target,turnqueue,currentTurn) { // dwarf special ability
     this.defence *= 2.5
     let arr = ["hunker",currentTurn + 3, this]
     turnqueue.push(arr)
-    console.log(`${this.name} used their special ability HUNKER DOWN \n  ${this.name} defence multiplied by 2.5 for 3 turns`)
+    console.log(`${this.name} used their special ability ${this.specialName} \n  ${this.name}'s defence multiplied by 2.5 for 3 turns`)
 }
 
 export function strongBlow (target,turnqueue,currentTurn) { // human special ability
     this.attack *= 2
     let arr = ["strongBlow",currentTurn + 2, this]
     turnqueue.push(arr)
-    console.log(`${this.name} used their special ability STRONG BLOW \n  ${this.name} attack multiplied by 2 for 2 turns`)
+    console.log(`${this.name} used their special ability ${this.specialName} \n  ${this.name}'s attack multiplied by 2 for 2 turns`)
 }
 
 export function coinToss (target,turnqueue,currentTurn) { // wizard special ability
+    console.log(`${this.name} flips a cursed coin, he picks heads, if he's right he wins again, if he's wrong, this is his final battle`)
     if ((Math.random() * 2) > 1) {
         target.health = 0
+        console.log("heads")
     }
     else {
         this.health = 0
+        console.log("tails")
     }
 }
 
@@ -62,6 +67,8 @@ export function turnCheck (player,turnqueue,currentTurn) { // checks the queue f
 }
 
 export async function combat (player,enemy,turnqueue,currentTurn) {
+    //local varaible to track how many times taunt has been used
+    let tauntCount = 0; 
     
     while (player.health > 0 && enemy.health > 0) {
         let response = await playerTurn(player)
@@ -76,24 +83,43 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
             case "-Defend":
                 player.Defend(turnqueue,currentTurn)
                 break
-            case `-${player.specialName}`:
+            case chalk.rgb(255, 107, 15)(`-${player.specialName}`):
                 player.special(enemy,turnqueue,currentTurn)
                 break
             case "-Taunt":
+                tauntCount += 1;
                 // runs inquiry and then passes the users input into 'Taunt' function
                 let customTaunt = await tauntInquiry();
                 // reduces enemy defense stat and passes the old and new value to Taunt() so it will log to the user
+                let shelldonResponse = null;
                 let oldDefense = enemy.defence;
-                enemy.defence -= 2;
-                player.Taunt(enemy, customTaunt.taunt, oldDefense, enemy.defence);
+                if (enemy.trait == "defence") { // shelldon
+                    switch (tauntCount) {
+                        case 1:
+                            shelldonResponse = shelldonTauntedOne;
+                            break;
+                        case 2:
+                            shelldonResponse = shelldonTauntedTwo;
+                            break;
+                        case 3:
+                            shelldonResponse = shelldonTauntedThree;
+                            enemy.defence = 5;
+                            break;
+                    }
+                } else { // non shelldon
+                    enemy.defence -= 2;
+                }
+                player.Taunt(enemy, customTaunt.taunt, oldDefense, enemy.defence, shelldonResponse);
                 break
         }
+        console.log("")
         enemyTurn(player,enemy,turnqueue,currentTurn)
+        console.log("")
         turnCheck(player,turnqueue,currentTurn)
         currentTurn++
         if (player.health > 0 && enemy.health > 0) {
-            console.log(`\n  ${player.name}: HP-${player.health} DEF-${player.defence} ATT-${player.attack}`)
-            console.log(`  ${enemy.name}: HP-${enemy.health} DEF-${enemy.defence} ATT-${enemy.attack} \n`)
+            console.log(`\n  ${player.name}: HP-${chalk.greenBright(player.health)} DEF-${chalk.blueBright(player.defence)} ATT-${chalk.red(player.attack)}`)
+            console.log(`  ${enemy.name}: HP-${chalk.greenBright(enemy.health)} DEF-${chalk.blueBright(enemy.defence)} ATT-${chalk.red(enemy.attack)} \n`)
         }
         /*console.table({
             name: player.name,
@@ -108,10 +134,12 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
         await wait("")
     }
     if (player.health <= 0) {
-        console.log(`${enemy.name} killed ${player.name}\n  GAME OVER`)
+        console.log(`${enemy.name}` + ` killed ${player.name}\n  GAME OVER`)
+        return false
     }
     else if (enemy.health <= 0) {
         console.log(`${player.name} killed ${enemy.name}\n`)
+        return true
     }
 }
 
@@ -156,10 +184,13 @@ export async function Puzzle() {
     let layout = [line1.split(""),line2.split(""),line3.split(""),line4.split(""),line5.split(""),line6.split(""),line7.split(""),line8.split(""),line9.split(""),line10.split(""),line11.split(""),line12.split(""),]
     let escape = false
     let coords = [0,0]
+    let time = 120
 
-    await wait(`You find yourself in a cave and you need to get out quick\n  P- player\n  O- walkable space\n  W- a wall\n  X- Your Exit`)
-
-    while (escape == false) {
+    await wait(`You need to get out quick\nOnce you press enter you will have 2 minutes to escape the maze\n  P- player\n  O- walkable space\n  W- a wall\n  X- Your Exit`)
+    for (let i = 1; i <= 120; i++) {
+        setTimeout(function(){ time -= 1 }, i * 1000) 
+    }
+    while (escape == false && time > 0) {
         for (let i = 0; i < 12; i++) {
             for (let x = 0; x < 12; x++) {
                 if (layout[i][x] == "P") {
@@ -170,6 +201,7 @@ export async function Puzzle() {
         }
 
         Show(layout,coords)
+        console.log(`time remaining: ${time}S`)
 
         let response = await Direction()
         switch (response.result) {
@@ -190,10 +222,6 @@ export async function Puzzle() {
                 if (layout[coords[0] + 1][coords[1]] == "W") {
                     console.log("You've hit a wall")
                 }
-                else if (layout[coords[0] + 1][coords[1]] == "X") {
-                    console.log("you got out!")
-                    return true
-                }
                 else {
                     layout[coords[0] + 1][coords[1]] = "P"
                     layout[coords[0]][coords[1]] = "O"
@@ -202,10 +230,6 @@ export async function Puzzle() {
             case "LEFT":
                 if (layout[coords[0]][coords[1] - 1] == "W") {
                     console.log("You've hit a wall")
-                }
-                else if (layout[coords[0]][coords[1] - 1] == "X") {
-                    console.log("you got out!")
-                    return true
                 }
                 else {
                     layout[coords[0]][coords[1] - 1] = "P"
@@ -216,10 +240,6 @@ export async function Puzzle() {
                 if (layout[coords[0]][coords[1] + 1] == "W") {
                     console.log("You've hit a wall")
                 }
-                else if (layout[coords[0]][coords[1] + 1] == "X") {
-                    console.log("you got out!")
-                    return true
-                }
                 else {
                     layout[coords[0]][coords[1] + 1] = "P"
                     layout[coords[0]][coords[1]] = "O"
@@ -227,6 +247,7 @@ export async function Puzzle() {
                 break
         }
     }
+    return false
 }
 
 function Show(layout,coords) {
@@ -236,10 +257,21 @@ function Show(layout,coords) {
         tempArr = []
         for (let x = 0; x < 12; x++) {
             if ((i >= coords[0] - 2 &&  i <= coords[0] + 2) && (x >= coords[1] - 2 &&  x <= coords[1] + 2)) {
-                tempArr[x] = layout[i][x]
+                if (layout[i][x] == "O") {
+                    tempArr[x] = chalk.rgb(112, 128, 158)(layout[i][x])
+                }
+                else if (layout[i][x] == "W") {
+                    tempArr[x] = chalk.rgb(173, 149, 109)(layout[i][x])
+                }
+                else if (layout[i][x] == "X") {
+                    tempArr[x] = chalk.green(layout[i][x])
+                }
+                else if (layout[i][x] == "P") {
+                    tempArr[x] = chalk.yellow(layout[i][x])
+                }
             } 
             else {
-                tempArr.push("#")
+                tempArr.push(chalk.blackBright("#"))
             }
         }
         showArr[i] = tempArr
