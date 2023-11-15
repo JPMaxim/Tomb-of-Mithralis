@@ -38,7 +38,8 @@ await wait("dialogue for start")
 await wait("dialogue before first fight")
 
 combat(player,monsterOne,turnqueue,currentTurn)
-turnqueue = []
+// reset turnqueue and currentTurn
+turnqueue.splice(0,turnqueue.length)
 currentTurn = 0
 
 await wait("dialogue for enter second room")
@@ -46,7 +47,8 @@ await wait("dialogue for enter second room")
 await wait("dialogue before second fight")
 
 combat(player,monsterTwo,turnqueue,currentTurn)
-turnqueue = []
+// reset turnqueue and currentTurn
+turnqueue.splice(0,turnqueue.length)
 currentTurn = 0
 
 await wait("dialogue for enter third room")
