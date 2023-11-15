@@ -1,4 +1,5 @@
 import {playerTurn, wait, tauntInquiry, Direction     /*<-- inquiry funciton names*/} from "./inquiries.js"
+import {gameStart} from "./index.js"
 import {shelldonTauntedOne, shelldonTauntedTwo, shelldonTauntedThree  /*<-- dialogue variable names*/} from "./dialogue.js"
 import chalk from "chalk"
 
@@ -135,6 +136,8 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
     }
     if (player.health <= 0) {
         console.log(`${enemy.name}` + ` killed ${player.name}\n  GAME OVER`)
+        // timespent in game
+        console.log(getTimeSpent(gameStart, new Date, false));
         return false
     }
     else if (enemy.health <= 0) {
@@ -284,11 +287,15 @@ function Show(layout,coords) {
 }
 
 // Calculate time in game Function
-export function getTimeSpent(start, end) {
+export function getTimeSpent(start, end, success) {
     let timeSpent =  end - start;
     let minutesFloat = (timeSpent / 1000 / 60).toFixed(2)
     let minutes = Math.floor(minutesFloat);
     let splitSecs = minutesFloat.toString().split(".")
-    let seconds = Math.floor(parseInt(splitSecs[1]) / 0.6)
-    return `You spent ${minutes} minutes, ${seconds} seconds to complete 'Tomb of Mythralis'. Congratulations, and thanks for playing!`
+    let seconds = Math.floor(parseInt(splitSecs[1]) * 0.6)
+    if (success == true) {
+        return `You spent ${minutes} minutes, ${seconds} seconds to complete Tomb of Mythralis. Congratulations, and thanks for playing!`
+    } else {
+        return `You spent ${minutes} minutes, ${seconds} seconds before meeting your end in the Tomb of Mythralis. Better luck next time!`
+    }
 }
