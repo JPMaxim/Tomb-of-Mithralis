@@ -1,4 +1,4 @@
-import { combat,heal,hunkerDown,strongBlow,chargeAttack,coinToss    /*<-- function names here*/} from "./functions.js"
+import { combat,heal,hunkerDown,strongBlow,chargeAttack,coinToss,Puzzle    /*<-- function names here*/} from "./functions.js"
 import { Enemy,Player      /*<-- class names here*/} from "./classes.js"
 import {difficultyInquiry, classInquiry , nameInquiry, wait      /*<-- inquiry funciton names*/} from "./inquiries.js"
 import {combatOneHint, combatTwoHint, combatThreeHint      /*<-- dialogue variable names*/} from "./dialogue.js"
@@ -95,3 +95,5 @@ if (difficulty.difficulty == "Easy - (hints included)") {
 await combat(player,monsterThree,turnqueue,currentTurn)
 
 await wait("victory dialogue")
+
+await Puzzle()

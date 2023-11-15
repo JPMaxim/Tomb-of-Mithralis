@@ -1,4 +1,4 @@
-import {playerTurn, wait, tauntInquiry      /*<-- inquiry funciton names*/} from "./inquiries.js"
+import {playerTurn, wait, tauntInquiry, Direction     /*<-- inquiry funciton names*/} from "./inquiries.js"
 
 export function heal (target,turnqueue,currentTurn) { // elf special ability
     this.health += 20
@@ -137,5 +137,116 @@ function enemyTurn (player,enemy,turnqueue,currentTurn) {
             chargeAttack(turnqueue,currentTurn,enemy)
         case "charging":
             break
+    }
+}
+
+export async function Puzzle() {
+    let line1 = "WWWWWWWWWWWW"
+    let line2 = "WOOOOOWOOOWW"
+    let line3 = "WWWOWOWWOWWW"
+    let line4 = "WOOOWOWWOWWW"
+    let line5 = "WWOWWOWWOOWW"
+    let line6 = "WWOWWPWWOWWW"
+    let line7 = "WWOWWOOOOWWW"
+    let line8 = "WWOOOWWWWWXW"
+    let line9 = "WWWWOWWWWWOW"
+    let line10 = "WWOOOOOOOOOW"
+    let line11 = "WWWWOWWWWWWW"
+    let line12 = "WWWWWWWWWWWW"
+    let layout = [line1.split(""),line2.split(""),line3.split(""),line4.split(""),line5.split(""),line6.split(""),line7.split(""),line8.split(""),line9.split(""),line10.split(""),line11.split(""),line12.split(""),]
+    let escape = false
+    let coords = [0,0]
+
+    await wait(`You find yourself in a cave and you need to get out quick\n  P- player\n  O- walkable space\n  W- a wall\n  X- Your Exit`)
+
+    while (escape == false) {
+        for (let i = 0; i < 12; i++) {
+            for (let x = 0; x < 12; x++) {
+                if (layout[i][x] == "P") {
+                    coords[0] = i
+                    coords[1] = x
+                } 
+            }
+        }
+
+        Show(layout,coords)
+
+        let response = await Direction()
+        switch (response.result) {
+            case "UP":
+                if (layout[coords[0] - 1][coords[1]] == "W") {
+                    console.log("You've hit a wall")
+                }
+                else if (layout[coords[0] - 1][coords[1]] == "X") {
+                    console.log("you got out!")
+                    return true
+                }
+                else {
+                    layout[coords[0] - 1][coords[1]] = "P"
+                    layout[coords[0]][coords[1]] = "O"
+                }
+                break
+            case "DOWN":
+                if (layout[coords[0] + 1][coords[1]] == "W") {
+                    console.log("You've hit a wall")
+                }
+                else if (layout[coords[0] + 1][coords[1]] == "X") {
+                    console.log("you got out!")
+                    return true
+                }
+                else {
+                    layout[coords[0] + 1][coords[1]] = "P"
+                    layout[coords[0]][coords[1]] = "O"
+                }
+                break
+            case "LEFT":
+                if (layout[coords[0]][coords[1] - 1] == "W") {
+                    console.log("You've hit a wall")
+                }
+                else if (layout[coords[0]][coords[1] - 1] == "X") {
+                    console.log("you got out!")
+                    return true
+                }
+                else {
+                    layout[coords[0]][coords[1] - 1] = "P"
+                    layout[coords[0]][coords[1]] = "O"
+                }
+                break
+            case "RIGHT":
+                if (layout[coords[0]][coords[1] + 1] == "W") {
+                    console.log("You've hit a wall")
+                }
+                else if (layout[coords[0]][coords[1] + 1] == "X") {
+                    console.log("you got out!")
+                    return true
+                }
+                else {
+                    layout[coords[0]][coords[1] + 1] = "P"
+                    layout[coords[0]][coords[1]] = "O"
+                }
+                break
+        }
+    }
+}
+
+function Show(layout,coords) {
+    let showArr = []
+    let tempArr = []
+    for (let i = 0; i < 12; i++) {
+        tempArr = []
+        for (let x = 0; x < 12; x++) {
+            if ((i >= coords[0] - 2 &&  i <= coords[0] + 2) && (x >= coords[1] - 2 &&  x <= coords[1] + 2)) {
+                tempArr[x] = layout[i][x]
+            } 
+            else {
+                tempArr.push("#")
+            }
+        }
+        showArr[i] = tempArr
+    }
+
+    for (let i = 0; i < 12; i++) {
+        let arr = showArr[i]
+        console.log(arr.join(" "))
     }
 }

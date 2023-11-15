@@ -53,3 +53,12 @@ export async function wait(words) {
         message: `${words}\nPress enter to continue`,
     })
 }
+
+export async function Direction() {
+    return await inquirer.prompt({
+        name: "result",
+        type: "list",
+        message: "Pick a direction:",
+        choices: ["UP", "RIGHT", "DOWN", `LEFT`]
+    })
+}
