@@ -28,6 +28,7 @@ const monsterThree = new Enemy(100, 10, 25, "Shelldon", "defence", characterName
 
 let choice = characterClass.class;
 let player
+
 if ( choice =="Elf - (Health Specialist)") {player = new Player(125,15,15,heal,"Heal", characterName.name);
 await wait ("Elf dialogue before first fight");}
  else if (choice == "Dwarf - (Defense Specialist)" ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);
@@ -38,7 +39,7 @@ await wait ("Human dialogue before first fight");}
 await wait ("wizard dialogue before first fight");}
 
 await combat(player,monsterOne,turnqueue,currentTurn)
-turnqueue = []
+turnqueue.splice(0,turnqueue.length)
 currentTurn = 0
 
 await wait("dialogue for entering the second room")
@@ -53,7 +54,11 @@ if(choice == "Elf - (Health Specialist)"){
 }
 
 await combat(player,monsterTwo,turnqueue,currentTurn)
-turnqueue = []
+
+
+// reset turnqueue and currentTurn
+turnqueue.splice(0,turnqueue.length)
+
 currentTurn = 0
 
 
