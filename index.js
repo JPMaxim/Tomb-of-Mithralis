@@ -36,9 +36,9 @@ let currentTurn = 0
 
 // Create Monster Objects
 // health, attack, defence, name, trait, playerName
-const monsterOne = new Enemy(50, 10, 25, "Goblin Scout", "stealth", characterName.name)
-const monsterTwo = new Enemy(75, 10, 25, "Minotaur", "chargedAttack", characterName.name)
-const monsterThree = new Enemy(100, 10, 75, "Shelldon", "defence", characterName.name)
+const monsterOne = new Enemy(50, 10, 25, "Fretral The Goblin Scout", "stealth", characterName.name)
+const monsterTwo = new Enemy(75, 10, 25, "Asterion The Minotaur", "chargedAttack", characterName.name)
+const monsterThree = new Enemy(100, 10, 75, "Shelldon The Crawfish", "defence", characterName.name)
 
 //health, attack, defence, special, specialName, name
 let choice = characterClass.class;
