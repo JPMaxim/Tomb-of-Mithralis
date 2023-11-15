@@ -1,5 +1,6 @@
 import {playerTurn, wait, tauntInquiry, Direction     /*<-- inquiry funciton names*/} from "./inquiries.js"
 import {shelldonTauntedOne, shelldonTauntedTwo, shelldonTauntedThree  /*<-- dialogue variable names*/} from "./dialogue.js"
+import chalk from "chalk"
 
 export function heal (target,turnqueue,currentTurn) { // elf special ability
     this.health += 20
@@ -108,12 +109,13 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
                 player.Taunt(enemy, customTaunt.taunt, oldDefense, enemy.defence, shelldonResponse);
                 break
         }
+        console.log("")
         enemyTurn(player,enemy,turnqueue,currentTurn)
         turnCheck(player,turnqueue,currentTurn)
         currentTurn++
         if (player.health > 0 && enemy.health > 0) {
-            console.log(`\n  ${player.name}: HP-${player.health} DEF-${player.defence} ATT-${player.attack}`)
-            console.log(`  ${enemy.name}: HP-${enemy.health} DEF-${enemy.defence} ATT-${enemy.attack} \n`)
+            console.log(`\n  ${player.name}: HP-${chalk.greenBright(player.health)} DEF-${chalk.blueBright(player.defence)} ATT-${chalk.red(player.attack)}`)
+            console.log(`  ${enemy.name}: HP-${chalk.greenBright(enemy.health)} DEF-${chalk.blueBright(enemy.defence)} ATT-${chalk.red(enemy.attack)} \n`)
         }
         /*console.table({
             name: player.name,
@@ -128,10 +130,12 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
         await wait("")
     }
     if (player.health <= 0) {
-        console.log(`${enemy.name} killed ${player.name}\n  GAME OVER`)
+        console.log(`${enemy.name}` + ` killed ${player.name}\n  GAME OVER`)
+        return false
     }
     else if (enemy.health <= 0) {
         console.log(`${player.name} killed ${enemy.name}\n`)
+        return true
     }
 }
 
@@ -176,10 +180,13 @@ export async function Puzzle() {
     let layout = [line1.split(""),line2.split(""),line3.split(""),line4.split(""),line5.split(""),line6.split(""),line7.split(""),line8.split(""),line9.split(""),line10.split(""),line11.split(""),line12.split(""),]
     let escape = false
     let coords = [0,0]
+    let time = 120
 
-    await wait(`You find yourself in a cave and you need to get out quick\n  P- player\n  O- walkable space\n  W- a wall\n  X- Your Exit`)
-
-    while (escape == false) {
+    await wait(`You need to get out quick\nOnce you press enter you will have 2 minutes to escape the maze\n  P- player\n  O- walkable space\n  W- a wall\n  X- Your Exit`)
+    for (let i = 1; i <= 120; i++) {
+        setTimeout(function(){ time -= 1 }, i * 1000) 
+    }
+    while (escape == false && time > 0) {
         for (let i = 0; i < 12; i++) {
             for (let x = 0; x < 12; x++) {
                 if (layout[i][x] == "P") {
@@ -190,6 +197,7 @@ export async function Puzzle() {
         }
 
         Show(layout,coords)
+        console.log(`time remaining: ${time}S`)
 
         let response = await Direction()
         switch (response.result) {
@@ -210,10 +218,6 @@ export async function Puzzle() {
                 if (layout[coords[0] + 1][coords[1]] == "W") {
                     console.log("You've hit a wall")
                 }
-                else if (layout[coords[0] + 1][coords[1]] == "X") {
-                    console.log("you got out!")
-                    return true
-                }
                 else {
                     layout[coords[0] + 1][coords[1]] = "P"
                     layout[coords[0]][coords[1]] = "O"
@@ -222,10 +226,6 @@ export async function Puzzle() {
             case "LEFT":
                 if (layout[coords[0]][coords[1] - 1] == "W") {
                     console.log("You've hit a wall")
-                }
-                else if (layout[coords[0]][coords[1] - 1] == "X") {
-                    console.log("you got out!")
-                    return true
                 }
                 else {
                     layout[coords[0]][coords[1] - 1] = "P"
@@ -236,10 +236,6 @@ export async function Puzzle() {
                 if (layout[coords[0]][coords[1] + 1] == "W") {
                     console.log("You've hit a wall")
                 }
-                else if (layout[coords[0]][coords[1] + 1] == "X") {
-                    console.log("you got out!")
-                    return true
-                }
                 else {
                     layout[coords[0]][coords[1] + 1] = "P"
                     layout[coords[0]][coords[1]] = "O"
@@ -247,6 +243,7 @@ export async function Puzzle() {
                 break
         }
     }
+    return false
 }
 
 function Show(layout,coords) {

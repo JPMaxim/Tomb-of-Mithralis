@@ -1,9 +1,11 @@
+import chalk from "chalk"
+
 class Character {
     constructor (health, attack, defence, name) {
         this.health = health
         this.attack = attack
         this.defence = defence
-        this.name = name
+        this.name = chalk.rgb(226, 230, 89)(name)
     }
 
     Defend(turnqueue,currentTurn) {
@@ -19,7 +21,7 @@ export class Enemy extends Character {
         super(health,attack, defence,name)
         this.trait = trait
         this.stance = "defence"
-        this.playerName = playerName
+        this.playerName = chalk.rgb(226, 230, 89)(playerName)
     }
 
     Attack(target) {

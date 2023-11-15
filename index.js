@@ -41,7 +41,9 @@ if (difficulty.difficulty == "Easy - (hints included)") {
     console.log(combatOneHint)
 }
 // Combat One
-await combat(player,monsterOne,turnqueue,currentTurn)
+if(!await combat(player,monsterOne,turnqueue,currentTurn)) {
+    process.exit(0);
+}
 
 // reset turnqueue and currentTurn
 turnqueue.splice(0,turnqueue.length)
@@ -64,7 +66,9 @@ if (difficulty.difficulty == "Easy - (hints included)") {
     console.log(combatTwoHint)
 }
 // Combat Two
-await combat(player,monsterTwo,turnqueue,currentTurn)
+if(!await combat(player,monsterTwo,turnqueue,currentTurn)) {
+    process.exit(0);
+}
 
 // reset turnqueue and currentTurn
 turnqueue.splice(0,turnqueue.length)
@@ -88,8 +92,15 @@ if (difficulty.difficulty == "Easy - (hints included)") {
     console.log(combatThreeHint)
 }
 // Combat Three
-await combat(player,monsterThree,turnqueue,currentTurn)
+if (!await combat(player,monsterThree,turnqueue,currentTurn)) {
+    process.exit(0);
+}
 
 await wait("victory dialogue")
 
-await Puzzle()
+if (await Puzzle()) {
+    await wait("you got out with the artifact dialogue");
+}
+else {
+    await wait("died in the maze");
+}
