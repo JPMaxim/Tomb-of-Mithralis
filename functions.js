@@ -289,6 +289,6 @@ export function getTimeSpent(start, end) {
     let minutesFloat = (timeSpent / 1000 / 60).toFixed(2)
     let minutes = Math.floor(minutesFloat);
     let splitSecs = minutesFloat.toString().split(".")
-    let seconds = parseInt(splitSecs[1])
+    let seconds = Math.floor(parseInt(splitSecs[1]) / 0.6)
     return `You spent ${minutes} minutes, ${seconds} seconds to complete 'Tomb of Mythralis'. Congratulations, and thanks for playing!`
 }
