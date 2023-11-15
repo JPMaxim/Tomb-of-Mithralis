@@ -25,6 +25,13 @@ const monsterTwo = new Enemy(75, 10, 25, "monsterTwo", "chargedAttack", characte
 const monsterThree = new Enemy(100, 10, 25, "monsterThree", "defence", characterName)
 
 //health, attack, defence, special, specialName, name
-const player = new Player(100,15,8,hunkerDown,"Hunker Down", characterName.name)
+
+let player
+if ( choice =="Elf - (Health Specialist)") {player = new Player(125,15,15,heal,"Heal", characterName.name);}
+ else if (choice == "Dwarf - (Defense Specialist)" ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);}
+  else if (choice == "Human - (Attack Specialist)") {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);}
+   else if (choice == "Wizard - (Luck Specialist)") {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name);}
 
 combat(player,monsterOne,turnqueue,currentTurn)
+
+
