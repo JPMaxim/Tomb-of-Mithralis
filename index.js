@@ -33,7 +33,26 @@ if ( choice =="Elf - (Health Specialist)") {player = new Player(125,15,15,heal,"
   else if (choice == "Human - (Attack Specialist)") {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);}
    else if (choice == "Wizard - (Luck Specialist)") {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name);}
 
+await wait("dialogue for start")
+
+await wait("dialogue before first fight")
+
 combat(player,monsterOne,turnqueue,currentTurn)
+turnqueue = []
+currentTurn = 0
 
+await wait("dialogue for enter second room")
 
+await wait("dialogue before second fight")
 
+combat(player,monsterTwo,turnqueue,currentTurn)
+turnqueue = []
+currentTurn = 0
+
+await wait("dialogue for enter third room")
+
+await wait("dialogue before third fight")
+
+combat(player,monsterThree,turnqueue,currentTurn)
+
+await wait("victory dialogue")
