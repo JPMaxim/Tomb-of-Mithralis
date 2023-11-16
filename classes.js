@@ -9,7 +9,7 @@ class Character {
     }
 
     Defend(turnqueue,currentTurn) { // multiplies defence by 1.2 and adds it to the turn queue for it to be reduced next turn
-        this.defence *= 1.2 
+        this.defence = Math.ceil(this.defence * 1.2)
         let arr = ["defence",currentTurn + 1, this]
         turnqueue.push(arr)
         console.log(`${this.name} defended \n  ${this.name}'s defence increased by 20% for 1 turn`)
