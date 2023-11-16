@@ -51,18 +51,18 @@ let wizard = chalk.rgb(138, 19, 187)("Wizard - (Luck Specialist)")
 
 
 
-if ( choice == elf) {player = new Player(125,15,15,heal,"Heal", characterName.name);
+if ( choice == elf) {player = new Player(125,15,15,heal,"Heal", `increases ${characterName.name}'s health by 20`, characterName.name);
     await wait(elfIntroScene)
     await wait ("Elf dialogue before first fight");}
 
-else if (choice == dwarf ) {player = new Player(100,15,25,hunkerDown,"Hunker Down", characterName.name);
+else if (choice == dwarf ) {player = new Player(100,15,25,hunkerDown,"Hunker Down",`increases ${characterName.name}'s defence by 2.5* for 3 turns`, characterName.name);
     await wait(dwarfIntroScene)
     await wait ("Dwarf dialogue before first fight");}
 
-else if (choice == human) {player = new Player(100,20,15,strongBlow,"Strong Blow", characterName.name);
+else if (choice == human) {player = new Player(100,20,15,strongBlow,"Strong Blow",`increases ${characterName.name}'s attack by 2* for 2 turns`, characterName.name);
     await wait(humanIntroScene)
     await wait ("Human dialogue before first fight");}
-else if (choice == wizard) {player = new Player(100,10,16,coinToss,"Coin Toss", characterName.name); 
+else if (choice == wizard) {player = new Player(100,10,16,coinToss,"Coin Toss",`${characterName.name} flips a coin to decide his fate`, characterName.name); 
     await wait(wizardIntroScene)
     await wait ("wizard dialogue before first fight");}
 

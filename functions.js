@@ -81,16 +81,16 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
     let tauntCount = 0; 
     
     while (player.health > 0 && enemy.health > 0) { // loop that runs whilst combat is still going
-        let response = await playerTurn(player) // querries the player for what move they want to make
+        let response = await playerTurn(player,enemy) // querries the player for what move they want to make
         console.log("")
         switch (response.playerChoice) { // executes a function based on what the player chose
-            case chalk.rgb(206, 94, 82)("-Light Attack"):
+            case chalk.rgb(206, 94, 82)("-Light Attack") + `   ${Math.round((player.attack * 0.75) * (1 - (enemy.defence / 100)))} damage`:
                 player.lightAttack(enemy)
                 break
-            case chalk.rgb(227, 58, 39)("-Heavy Attack"):
+            case chalk.rgb(227, 58, 39)("-Heavy Attack") + `   ${Math.round((player.attack * 1.25) * (1 - (enemy.defence / 100)))} damage`:
                 player.heavyAttack(enemy)
                 break
-            case chalk.blue("-Defend"):
+            case chalk.blue("-Defend") + `   +${Math.ceil((player.defence * 1.2) - player.defence)} defence for 1 turn`:
                 if (enemy.trait == "chargedAttack") {
                     player.Defend(turnqueue,currentTurn,1)
                     break
@@ -99,10 +99,10 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
                     break
                 }
 
-            case chalk.rgb(255, 107, 15)(`-${player.specialName}`):
+            case chalk.rgb(255, 107, 15)(`-${player.specialName}`) + `   ${player.specialInfo}`:
                 player.special(enemy,turnqueue,currentTurn)
                 break
-            case chalk.rgb(233, 9, 170)("-Taunt"):
+            case chalk.rgb(233, 9, 170)("-Taunt") + `   reduces enemy defence`:
                 tauntCount += 1;
                 // runs inquiry and then passes the users input into 'Taunt' function
                 let customTaunt = await tauntInquiry();

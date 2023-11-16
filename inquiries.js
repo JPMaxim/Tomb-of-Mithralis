@@ -28,12 +28,16 @@ export async function nameInquiry() {
 }
 
 //Player Turn Inquiry
-export async function playerTurn(obj) {
+export async function playerTurn(player,enemy) {
     return await inquirer.prompt({
         name: "playerChoice",
         type: "list",
         message: "Choose your move:",
-        choices: [chalk.rgb(206, 94, 82)("-Light Attack"), chalk.rgb(227, 58, 39)("-Heavy Attack"), chalk.blue("-Defend"), chalk.rgb(255, 107, 15)(`-${obj.specialName}`), chalk.rgb(233, 9, 170)("-Taunt")]
+        choices: [chalk.rgb(206, 94, 82)(`-Light Attack`) + `   ${Math.round((player.attack * 0.75) * (1 - (enemy.defence / 100)))} damage`, 
+        chalk.rgb(227, 58, 39)(`-Heavy Attack`) + `   ${Math.round((player.attack * 1.25) * (1 - (enemy.defence / 100)))} damage`, 
+        chalk.blue(`-Defend`) + `   +${Math.round((player.defence * 1.2) - player.defence)} defence for 1 turn`, 
+        chalk.rgb(255, 107, 15)(`-${player.specialName}`) + `   ${player.specialInfo}`, 
+        chalk.rgb(233, 9, 170)("-Taunt") + `   reduces enemy defence`]
     })
 }
 
