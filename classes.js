@@ -80,11 +80,11 @@ export class Player extends Character {
 
     Taunt(target,taunt,oldDefense, newDefense, tauntResponse) {
         if (typeof(tauntResponse) != "string") { // non sheeldon taunts
-            console.log(`${this.name} taunts ${target.name}: \n  "${taunt}"
-            ${target.name}'s defense dropped from ${oldDefense}% to ${newDefense}% due to emotional damage.`)
+            console.log(`${this.name} ${chalk.rgb(233, 9, 170)('taunts')} ${target.name}: \n  "${chalk.rgb(233, 9, 170)(taunt)}"
+  ${target.name}'s defense dropped from ${oldDefense}% to ${newDefense}% due to emotional damage.`)
         } else { // shelldon taunt
-            console.log(`${this.name} taunts ${target.name}: \n  "${taunt}"
-            ${tauntResponse}`)
+            console.log(`${this.name} taunts ${target.name}: \n  "${chalk.rgb(233, 9, 170)(taunt)}"
+  ${tauntResponse}`)
             if (tauntResponse.charAt(0) == "P") {
                 console.log(`${target.name}'s defense dropped from ${oldDefense}% to ${newDefense}% due to severe emotional damage.`)
             } else {

@@ -9,6 +9,6 @@ export const wizardIntroScene = "You are wizard from the realm of Aeythaer. Ever
 
 
 export const shelldonTauntedOne = "Shelldon raises an eyebrow, and a look of agitation grows.";
-export const shelldonTauntedTwo = "I think that hit a nerve, mild agitation evolves to a look of seething bloodlust";
+export const shelldonTauntedTwo = "I think that hit a nerve, he's really starting to get upset now, almost overflowing with agitation.";
 export const shelldonTauntedThree = "Pushed past the brink of tolerance, Shelldon clumsily comes steaming out of it's shell, blabbering a rapid-fire torrent of unintelligible yet piercing remarks.";
 
