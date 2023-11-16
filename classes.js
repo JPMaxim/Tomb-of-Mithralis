@@ -12,14 +12,14 @@ class Character {
         switch (enemy) {
             case 1: // if defending against Minotaur
                 this.defence = 90
-                console.log(`${this.name} defended \n  ${this.name}'s defense when defending is 90% against Minotaur.`)
+                console.log(`${this.name} defended \n  ${this.name}'s defense is 90% when defending against Minotaur.`)
                 break
             case 0:
                 this.defence = Math.ceil(this.defence * 1.2)
                 console.log(`${this.name} defended \n  ${this.name}'s defence increased by 20% for 1 turn`)
                 break
         }
-        let arr = ["defence",currentTurn, this]
+        let arr = ["defence",currentTurn + 1, this]
         turnqueue.push(arr)
     }
 }
