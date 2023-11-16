@@ -1,15 +1,15 @@
 import chalk from "chalk"
 
 class Character {
-    constructor (health, attack, defence, name) {
+    constructor (health, attack, defence, name) { // sets the properties that all character derivatives will have
         this.health = health
         this.attack = attack
         this.defence = defence
         this.name = chalk.rgb(226, 230, 89)(name)
     }
 
-    Defend(turnqueue,currentTurn) {
-        this.defence *= 1.2
+    Defend(turnqueue,currentTurn) { // multiplies defence by 1.2 and adds it to the turn queue for it to be reduced next turn
+        this.defence *= 1.2 
         let arr = ["defence",currentTurn + 1, this]
         turnqueue.push(arr)
         console.log(`${this.name} defended \n  ${this.name}'s defence increased by 20% for 1 turn`)
@@ -24,12 +24,12 @@ export class Enemy extends Character {
         this.playerName = chalk.rgb(226, 230, 89)(playerName)
     }
 
-    Attack(target) {
+    Attack(target) { // reduces player health by enemy attack * (100 - player defence)%
         target.health -= Math.round(this.attack * (1 - (target.defence / 100)))
         console.log(`${this.name} attacks! \n  ${this.name} dealt ${Math.round(this.attack * (1 - (target.defence / 100)))} damage to ${this.playerName}`)
     }
 
-    StanceChange() {
+    StanceChange() { // swaps whether the enemy is attack or defense specialised using a full turn to swap
         if (this.stance == "attack") {
             this.stance = "defence"
             this.defence += 10
@@ -48,16 +48,16 @@ export class Enemy extends Character {
 export class Player extends Character {
     constructor (health, attack, defence, special,specialName, name) {
         super(health,attack,defence,name)
-        this.special = special
+        this.special = special // takes in a function so that a seperate class contianing a single function isn't needed for each selectable race(elf,dwarf,human,wizard)
         this.specialName = chalk.rgb(255, 107, 15)(specialName)
     }
 
-    lightAttack(target) {
+    lightAttack(target) { // reduces enemy health by player attack * 0.75 * (100 - emeny defence)%
         target.health -= Math.round((this.attack * 0.75) * (1 - (target.defence / 100)))
         console.log(`${this.name} does a light attack! \n  ${this.name} dealt ${Math.round((this.attack * 0.75) * (1 - (target.defence / 100)))} damage to ${target.name}`)
     }
 
-    heavyAttack(target) {
+    heavyAttack(target) { // reduces enemy health by player attack * 1.25 * (100 - emeny defence)% but misses constantly on first monster encounter
         // If you're fighting the first monster, heavy attack will miss. Else it hits
         if (target.trait == "stealth") {
             // attack misses
