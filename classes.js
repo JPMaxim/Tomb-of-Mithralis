@@ -46,10 +46,11 @@ export class Enemy extends Character {
 }
 
 export class Player extends Character {
-    constructor (health, attack, defence, special,specialName, name) {
+    constructor (health, attack, defence, special,specialName,specialInfo, name) {
         super(health,attack,defence,name)
         this.special = special // takes in a function so that a seperate class contianing a single function isn't needed for each selectable race(elf,dwarf,human,wizard)
         this.specialName = chalk.rgb(255, 107, 15)(specialName)
+        this.specialInfo = specialInfo
     }
 
     lightAttack(target) { // reduces enemy health by player attack * 0.75 * (100 - emeny defence)%

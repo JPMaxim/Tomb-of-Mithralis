@@ -72,7 +72,7 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
     let tauntCount = 0; 
     
     while (player.health > 0 && enemy.health > 0) { // loop that runs whilst combat is still going
-        let response = await playerTurn(player) // querries the player for what move they want to make
+        let response = await playerTurn(player,enemy) // querries the player for what move they want to make
         console.log("")
         switch (response.playerChoice) { // executes a function based on what the player chose
             case chalk.rgb(206, 94, 82)("-Light Attack"):
