@@ -37,7 +37,7 @@ export async function playerTurn(player,enemy) {
         chalk.rgb(227, 58, 39)(`-Heavy Attack`) + `   ${Math.round((player.attack * 1.25) * (1 - (enemy.defence / 100)))} damage`, 
         chalk.blue(`-Defend`) + `   +${Math.round((player.defence * 1.2) - player.defence)} defence for 1 turn`, 
         chalk.rgb(255, 107, 15)(`-${player.specialName}`) + `   ${player.specialInfo}`, 
-        chalk.rgb(233, 9, 170)("-Taunt") + `   Does emotional damage (disclaimer: does not damage enemies)`]
+        chalk.rgb(233, 9, 170)("-Taunt") + `   reduces enemy defence`]
     })
 }
 
