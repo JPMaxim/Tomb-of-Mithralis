@@ -48,6 +48,15 @@ export function turnCheck (player,turnqueue,currentTurn) { // checks the queue f
                 case "defence":  // brings defense back down after defending
                     turnqueue[len - i - 1][2].defence = Math.round(turnqueue[len - i - 1][2].defence / 1.2)
                     console.log(`${turnqueue[len - i - 1][2].name}'s defence reduces by 20% after last turn's defence`)
+
+                    // fix for defence going to 90% against minotaur from jonny
+                    if ((turnqueue[len - i - 1][2].defence) > 50){
+                        if (turnqueue[len - i - 1][2].specialName == "Hunker Down") {
+                            turnqueue[len - i - 1][2].defence = 15
+                        } else {
+                            turnqueue[len - i - 1][2].defence = 25
+                        }
+                    }
                     break
                 case "hunker":  // brings defence back down after using hunker down
                     turnqueue[len - i - 1][2].defence = Math.round(turnqueue[len - i - 1][2].defence / 2.5)
@@ -82,8 +91,14 @@ export async function combat (player,enemy,turnqueue,currentTurn) {
                 player.heavyAttack(enemy)
                 break
             case chalk.blue("-Defend"):
-                player.Defend(turnqueue,currentTurn)
-                break
+                if (enemy.trait == "chargedAttack") {
+                    player.Defend(turnqueue,currentTurn,1)
+                    break
+                } else {
+                    player.Defend(turnqueue,currentTurn,0)
+                    break
+                }
+
             case chalk.rgb(255, 107, 15)(`-${player.specialName}`):
                 player.special(enemy,turnqueue,currentTurn)
                 break
@@ -162,7 +177,7 @@ function enemyTurn (player,enemy,turnqueue,currentTurn) {
             enemy.Attack(player)
             break
         case 1:
-            enemy.Defend(turnqueue,currentTurn)
+            enemy.Defend(turnqueue,currentTurn,0)
             break
         case 2:
             enemy.StanceChange()
