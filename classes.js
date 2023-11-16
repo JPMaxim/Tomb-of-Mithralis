@@ -8,11 +8,19 @@ class Character {
         this.name = chalk.rgb(226, 230, 89)(name)
     }
 
-    Defend(turnqueue,currentTurn) { // multiplies defence by 1.2 and adds it to the turn queue for it to be reduced next turn
-        this.defence = Math.ceil(this.defence * 1.2)
-        let arr = ["defence",currentTurn + 1, this]
+    Defend(turnqueue,currentTurn,enemy) { // multiplies defence by 1.2 and adds it to the turn queue for it to be reduced next turn        
+        switch (enemy) {
+            case 1: // if defending against Minotaur
+                this.defence = 90
+                console.log(`${this.name} defended \n  ${this.name}'s defense when defending is 90% against Minotaur.`)
+                break
+            case 0:
+                this.defence = Math.ceil(this.defence * 1.2)
+                console.log(`${this.name} defended \n  ${this.name}'s defence increased by 20% for 1 turn`)
+                break
+        }
+        let arr = ["defence",currentTurn, this]
         turnqueue.push(arr)
-        console.log(`${this.name} defended \n  ${this.name}'s defence increased by 20% for 1 turn`)
     }
 }
 
