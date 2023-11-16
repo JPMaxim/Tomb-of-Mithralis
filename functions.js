@@ -46,11 +46,11 @@ export function turnCheck (player,turnqueue,currentTurn) { // checks the queue f
         if (turnqueue[len - i - 1][1] == currentTurn) {  // checks if the item in turnqueue being checked needs to be ran this turn
             switch (turnqueue[len - i - 1][0]) {  // checks what needs to be done if it needs to be done this turn
                 case "defence":  // brings defense back down after defending
-                    turnqueue[len - i - 1][2].defence /= 1.2
+                    turnqueue[len - i - 1][2].defence = Math.round(turnqueue[len - i - 1][2].defence / 1.2)
                     console.log(`${turnqueue[len - i - 1][2].name}'s defence returns to normal`)
                     break
                 case "hunker":  // brings defence back down after using hunker down
-                    turnqueue[len - i - 1][2].defence /= 2.5
+                    turnqueue[len - i - 1][2].defence = Math.round(turnqueue[len - i - 1][2].defence / 2.5)
                     console.log(`${turnqueue[len - i - 1][2].name}'s Hunker Down wears off`)
                     break
                 case "strongBlow": // brings attack back down after using strong blow
