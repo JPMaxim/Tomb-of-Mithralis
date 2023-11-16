@@ -52,9 +52,9 @@ export function turnCheck (player,turnqueue,currentTurn) { // checks the queue f
                     // fix for defence going to 90% against minotaur from jonny
                     if ((turnqueue[len - i - 1][2].defence) > 50){
                         if (turnqueue[len - i - 1][2].specialName == "Hunker Down") {
-                            turnqueue[len - i - 1][2].defence = 15
-                        } else {
                             turnqueue[len - i - 1][2].defence = 25
+                        } else {
+                            turnqueue[len - i - 1][2].defence = 15
                         }
                     }
                     break
