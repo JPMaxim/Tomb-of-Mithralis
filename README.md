@@ -7,7 +7,7 @@ Choose your character from Elf, Dwarf, Wizard or Human with background lore for 
 ## Deployment
 Node.js is required to run the project. The game runs in the terminal. <br />
 Clone the repository and run ``` npm install ``` on the command line. <br />
-Then run ``` node index.js ``` to beging the game.
+Then run ``` node index.js ``` to begin the game.
 
 ## Group Project Week 6 GC Bootcamp
 google doc - https://docs.google.com/document/d/1Oo89sOloLvUCWIRfJHT9ytRcZ_GK0SZqlkIO2hDhk-Q/edit?usp=sharing  
